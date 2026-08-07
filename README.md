@@ -109,4 +109,4 @@ Desenvolvido por Pedro Pereira.
 
 ## Licença
 
-Licença Pública Geral GNU 3.0
+Licença Pública Geral GNU v3.0
