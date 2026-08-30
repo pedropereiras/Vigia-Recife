@@ -1,26 +1,8 @@
-# -*- coding: utf-8 -*-
-"""
-limpeza.py
-==========
-Funções de limpeza estrutural da base: padronização de texto, remoção de
-duplicatas e verificação de integridade de coordenadas.
-
-Todas as funções recebem um DataFrame e retornam uma cópia — nunca alteram
-o DataFrame original in-place. Isso preserva a base bruta intacta para fins
-de rastreabilidade, conforme a decisão metodológica documentada no projeto.
-"""
-
 import pandas as pd
 
 
 def padronizar_texto(df: pd.DataFrame) -> pd.DataFrame:
-    """
-    Remove espaços nas extremidades e converte para maiúsculas todas as
-    colunas de texto (dtype object).
-
-    Evita que a mesma categoria apareça de formas diferentes na base
-    (ex.: "Ibura", "IBURA ", "ibura" tratados como três bairros distintos).
-    """
+  
     dados = df.copy()
     colunas = dados.select_dtypes(include="object").columns
 
@@ -31,7 +13,7 @@ def padronizar_texto(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def remover_duplicatas(df: pd.DataFrame, verbose: bool = True) -> pd.DataFrame:
-    """Remove registros totalmente duplicados."""
+    
     duplicados = df.duplicated().sum()
 
     if verbose:
@@ -46,16 +28,7 @@ def remover_duplicatas(df: pd.DataFrame, verbose: bool = True) -> pd.DataFrame:
 
 
 def checar_coordenadas(df: pd.DataFrame, verbose: bool = True) -> pd.DataFrame:
-    """
-    Identifica registros sem latitude/longitude.
-
-    Returns
-    -------
-    pd.DataFrame
-        Subconjunto de registros com coordenadas ausentes (para inspeção).
-        A base original não é alterada — a decisão de descartar ou não
-        esses registros fica a cargo de quem chama a função.
-    """
+ 
     invalidas = df[df["latitude"].isna() | df["longitude"].isna()]
 
     if verbose:
@@ -67,13 +40,7 @@ def checar_coordenadas(df: pd.DataFrame, verbose: bool = True) -> pd.DataFrame:
 
 
 def anonimizar_base(df: pd.DataFrame) -> pd.DataFrame:
-    """
-    Remove colunas sensíveis e arredonda coordenadas para reduzir risco
-    de reidentificação (ver docs/metodologia.md, seção 7).
-
-    Coluna `address` é removida; latitude/longitude são arredondadas
-    para 3 casas decimais (~110m de precisão).
-    """
+  
     dados = df.copy()
     colunas_remover = [c for c in ["address"] if c in dados.columns]
     dados = dados.drop(columns=colunas_remover, errors="ignore")
@@ -86,13 +53,7 @@ def anonimizar_base(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def limpar_base(df: pd.DataFrame, verbose: bool = True) -> pd.DataFrame:
-    """
-    Orquestra a limpeza estrutural completa: padronização de texto,
-    remoção de duplicatas e checagem (não remoção) de coordenadas ausentes.
-
-    Esta é a função que main.py e o notebook devem chamar — a fonte da
-    verdade única para "como a base é limpa" no projeto.
-    """
+    
     dados = padronizar_texto(df)
     dados = remover_duplicatas(dados, verbose=verbose)
     checar_coordenadas(dados, verbose=verbose)
