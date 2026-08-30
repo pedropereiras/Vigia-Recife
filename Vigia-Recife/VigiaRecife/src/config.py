@@ -1,20 +1,5 @@
-# -*- coding: utf-8 -*-
-"""
-config.py
-=========
-Configurações centrais do projeto Vigia Recife.
-
-Centraliza caminhos de arquivos, paleta de cores e constantes de domínio
-usadas em múltiplos módulos. Qualquer ajuste estrutural (ex.: mudar o nome
-do arquivo de dados brutos) deve ser feito apenas aqui — nunca duplicado
-dentro de outro módulo.
-"""
-
 from pathlib import Path
 
-# ---------------------------------------------------------------------------
-# Caminhos do projeto
-# ---------------------------------------------------------------------------
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 DATA_RAW_DIR = BASE_DIR / "data" / "raw"
@@ -22,28 +7,20 @@ DATA_PROCESSED_DIR = BASE_DIR / "data" / "processed"
 OUTPUTS_DIR = BASE_DIR / "outputs"
 FIGURES_DIR = OUTPUTS_DIR / "figures"
 
-# Nome do arquivo de dados brutos dentro de data/raw/
 RAW_CSV_NAME = "eventos.csv"
 RAW_CSV_PATH = DATA_RAW_DIR / RAW_CSV_NAME
 RAW_CSV_ENCODING = "utf-8"
 
 RELATORIO_FILENAME = "relatorio.txt"
 
-# Garante que as pastas de saída existam ao importar o módulo
 for _dir in (DATA_PROCESSED_DIR, FIGURES_DIR, OUTPUTS_DIR):
     _dir.mkdir(parents=True, exist_ok=True)
 
-# ---------------------------------------------------------------------------
-# Paleta visual padrão (usada em src/graficos.py)
-# ---------------------------------------------------------------------------
 COR_PRIMARIA = "#B71C1C"
 COR_SECUNDARIA = "#1976D2"
 COR_NEUTRA = "#9E9E9E"
 COR_POSITIVA = "#388E3C"
 
-# ---------------------------------------------------------------------------
-# Constantes de domínio
-# ---------------------------------------------------------------------------
 MONTH_MAP = {
     1: "JANEIRO", 2: "FEVEREIRO", 3: "MARÇO", 4: "ABRIL",
     5: "MAIO", 6: "JUNHO", 7: "JULHO", 8: "AGOSTO",
