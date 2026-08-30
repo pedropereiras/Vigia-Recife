@@ -1,0 +1,150 @@
+
+=== BASE BRUTA ===
+Registros: 2000 | Colunas: 11
+
+=== RESUMO DA LIMPEZA E TRATAMENTO ===
+Bairros únicos: 25
+Período: 2018-01-01 01:47:20 até 2025-12-28 16:16:48
+Registros com hora estimada (artefato 21h): 0 (0.0%)
+
+=== ESTATÍSTICAS DE IDADE ===
+{
+  "media": 29.97,
+  "mediana": 30.0,
+  "moda": 10.0,
+  "desvio_padrao": 11.8,
+  "variancia": 139.34
+}
+
+=== TOP 15 BAIRROS COM MAIS OCORRÊNCIAS ===
+neighborhood
+VASCO DA GAMA          64
+JARDIM SAO PAULO       64
+SANTO AMARO            70
+BREJO DA GUARDEIRA     72
+ESTACAO                80
+CURADO                 83
+CORDOARIA              91
+MANGABEIRA             92
+SAN MARTIN             97
+ALTO JOSE DO PINHO    103
+COHAB                 133
+IPUTINGA              148
+IBURA                 150
+NOVA DESCOBERTA       154
+VARZEA                163
+
+=== OCORRÊNCIAS POR ANO ===
+ano
+2018    126
+2019    197
+2020    237
+2021    280
+2022    255
+2023    301
+2024    304
+2025    300
+
+=== PAINEL — TOP 5 BAIRROS ===
+            Bairro  Ocorrências    Tipo predominante Gênero predominante Faixa etária   Dia crítico
+0           VARZEA          163  HOMICIDIO/TENTATIVA           HOMEM CIS       ADULTO  QUINTA-FEIRA
+1  NOVA DESCOBERTA          154  HOMICIDIO/TENTATIVA           HOMEM CIS       ADULTO        SÁBADO
+2            IBURA          150  HOMICIDIO/TENTATIVA           HOMEM CIS       ADULTO   SEXTA-FEIRA
+3         IPUTINGA          148  HOMICIDIO/TENTATIVA           HOMEM CIS       ADULTO  QUARTA-FEIRA
+4            COHAB          133  HOMICIDIO/TENTATIVA           HOMEM CIS       ADULTO  QUINTA-FEIRA
+
+=== DISTRIBUIÇÃO POR DIA DA SEMANA ===
+dia_semana
+SEGUNDA-FEIRA    312
+TERÇA-FEIRA      260
+QUARTA-FEIRA     278
+QUINTA-FEIRA     306
+SEXTA-FEIRA      305
+SÁBADO           275
+DOMINGO          264
+
+=== PIRÂMIDE ETÁRIA (GERAL) ===
+genre        HOMEM CIS  MULHER CIS
+ageGroup                          
+CRIANÇA              0           0
+ADOLESCENTE        131          21
+ADULTO            1366         253
+IDOSO               12          10
+
+=== ESCOLHA DE k (COTOVELO + SILHUETA) ===
+{
+  "inercias": {
+    "2": 286.0,
+    "3": 234.9,
+    "4": 199.8,
+    "5": 186.2,
+    "6": 171.3,
+    "7": 156.1,
+    "8": 134.2
+  },
+  "silhuetas": {
+    "2": 0.137,
+    "3": 0.165,
+    "4": 0.179,
+    "5": 0.164,
+    "6": 0.125,
+    "7": 0.1,
+    "8": 0.108
+  },
+  "k_escolhido": 4
+}
+
+=== RESUMO DOS CLUSTERS (k=4) ===
+         ocorrencias  idade_media  acao_policial  pct_fim_semana
+cluster                                                         
+0              91.50        29.21           0.05            0.31
+1              47.40        30.17           0.03            0.22
+2              96.88        31.29           0.08            0.24
+3              36.50        30.19           0.04            0.27
+
+=== TESTE DE TENDÊNCIA TEMPORAL ===
+{
+  "slope": 0.1569,
+  "p_valor": 0.0,
+  "significativa": true,
+  "direcao": "crescimento"
+}
+
+=== TOP 10 BAIRROS — MAIOR % AÇÃO POLICIAL ===
+                    ocorrencias  pct_acao
+neighborhood                             
+ESPINHEIRO                   43      11.6
+AFLITOS                      57      10.5
+MANGABEIRA                   92       9.8
+NOVA DESCOBERTA             154       8.4
+CURADO                       83       8.4
+IPUTINGA                    148       8.1
+JAQUEIRA                     39       7.7
+SAN MARTIN                   97       7.2
+BREJO DA GUARDEIRA           72       6.9
+CAXANGA                      62       6.5
+
+=== TOP 10 BAIRROS — MENOR % AÇÃO POLICIAL ===
+                    ocorrencias  pct_acao
+neighborhood                             
+GRACO                        34       0.0
+BOA VISTA                    42       0.0
+JARDIM SAO PAULO             64       1.6
+POCO DA PANELA               32       3.1
+VASCO DA GAMA                64       3.1
+CASA AMARELA                 56       3.6
+ALTO JOSE DO PINHO          103       3.9
+SANTO AMARO                  70       4.3
+ESTACAO                      80       5.0
+TOTOS                        37       5.4
+
+=== AÇÃO POLICIAL POR TIPO DE OCORRÊNCIA ===
+                     ocorrencias  pct_acao
+main_reason                               
+OUTRO                         41       7.3
+AMEACA                       210       6.7
+HOMICIDIO/TENTATIVA          674       6.5
+DISPARO                      533       6.4
+TIRO                         302       6.3
+BRIGA                         80       3.8
+ROUBO                        160       3.8

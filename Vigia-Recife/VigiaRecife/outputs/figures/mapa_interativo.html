@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_881d280af4518df413e294707183b92b {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+    <script src="https://cdn.jsdelivr.net/gh/python-visualization/folium@main/folium/templates/leaflet_heat.min.js"></script>
+</head>
+<body>
+    
+    
+    <div style="position:fixed;bottom:30px;left:30px;z-index:1000;
+                background:white;padding:10px;border:1px solid #ccc;border-radius:5px;
+                font-size:11px;font-family:Arial">
+      <b>Volume de ocorrências</b><br>
+      <span style="color:#90CAF9">&#9679;</span> &le; Q1 (baixo)<br>
+      <span style="color:#FFA726">&#9679;</span> Q1-Q50<br>
+      <span style="color:#FF7043">&#9679;</span> Q50-Q75<br>
+      <span style="color:#B71C1C">&#9679;</span> &ge; Q75 (alto)
+    </div>
+    
+    
+            <div class="folium-map" id="map_881d280af4518df413e294707183b92b" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_881d280af4518df413e294707183b92b = L.map(
+                "map_881d280af4518df413e294707183b92b",
+                {
+                    center: [-8.0476, -34.877],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 12,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_940d4dd2ae93db873044309d0166c83d = L.tileLayer(
+                "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 20,
+  "maxNativeZoom": 20,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"https://carto.com/attributions\"\u003eCARTO\u003c/a\u003e",
+  "subdomains": "abcd",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_940d4dd2ae93db873044309d0166c83d.addTo(map_881d280af4518df413e294707183b92b);
+        
+    
+            var feature_group_7a7a39f0b8351971506417f7aebbb7de = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var circle_marker_9bc435a54e4619b05bd0db0406b19d8a = L.circleMarker(
+                [-8.044974175438597, -34.87174049122807],
+                {"bubblingMouseEvents": true, "color": "#FFA726", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFA726", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7.125, "stroke": true, "weight": 3}
+            ).addTo(feature_group_7a7a39f0b8351971506417f7aebbb7de);
+        
+    
+        var popup_c7ba547ae06722be3205845ff251df38 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_5f6a3aab281bde11ee75d09b6cc1c57f = $(`<div id="html_5f6a3aab281bde11ee75d09b6cc1c57f" style="width: 100.0%; height: 100.0%;">     <div style="font-family:Arial,sans-serif;font-size:12px;width:220px">       <b style="font-size:14px;color:#B71C1C">AFLITOS</b><br>       <b>Total:</b> 57 ocorrências<br>       <b>Idade média:</b> 31.8 anos<br>       <b>Gênero predominante:</b> HOMEM CIS<br>       <b>% período noturno:</b> 42%<br>       <hr style="margin:4px 0">       <b>Top tipos:</b><br>  HOMICIDIO/TENTATIVA: 21<br>  DISPARO: 11<br>  AMEACA: 8     </div>     </div>`)[0];
+                popup_c7ba547ae06722be3205845ff251df38.setContent(html_5f6a3aab281bde11ee75d09b6cc1c57f);
+            
+        
+
+        circle_marker_9bc435a54e4619b05bd0db0406b19d8a.bindPopup(popup_c7ba547ae06722be3205845ff251df38)
+        ;
+
+        
+    
+    
+            circle_marker_9bc435a54e4619b05bd0db0406b19d8a.bindTooltip(
+                `<div>
+                     AFLITOS: 57.0 ocorrências
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_0180ebffa40a41aa5f1756b096190ec2 = L.circleMarker(
+                [-8.020065330097088, -34.88447974757282],
+                {"bubblingMouseEvents": true, "color": "#B71C1C", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#B71C1C", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12.875, "stroke": true, "weight": 3}
+            ).addTo(feature_group_7a7a39f0b8351971506417f7aebbb7de);
+        
+    
+        var popup_9060349695232ba38977831a5b8fb171 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_69719d6a81e32a27c6092c377f61396d = $(`<div id="html_69719d6a81e32a27c6092c377f61396d" style="width: 100.0%; height: 100.0%;">     <div style="font-family:Arial,sans-serif;font-size:12px;width:220px">       <b style="font-size:14px;color:#B71C1C">ALTO JOSE DO PINHO</b><br>       <b>Total:</b> 103 ocorrências<br>       <b>Idade média:</b> 28.6 anos<br>       <b>Gênero predominante:</b> HOMEM CIS<br>       <b>% período noturno:</b> 45%<br>       <hr style="margin:4px 0">       <b>Top tipos:</b><br>  HOMICIDIO/TENTATIVA: 44<br>  DISPARO: 26<br>  AMEACA: 10     </div>     <svg width="220" height="75" xmlns="http://www.w3.org/2000/svg"><text x="110" y="10" text-anchor="middle" font-size="9" fill="#333">ALTO JOSE DO PINHO — perfil por hora</text><rect x="0.0" y="42.4" width="8.2" height="17.6" fill="#90CAF9" rx="1"/><rect x="9.2" y="42.4" width="8.2" height="17.6" fill="#90CAF9" rx="1"/><rect x="18.3" y="42.4" width="8.2" height="17.6" fill="#90CAF9" rx="1"/><rect x="27.5" y="35.3" width="8.2" height="24.7" fill="#FFA726" rx="1"/><rect x="36.7" y="52.9" width="8.2" height="7.1" fill="#90CAF9" rx="1"/><rect x="45.8" y="56.5" width="8.2" height="3.5" fill="#90CAF9" rx="1"/><rect x="55.0" y="52.9" width="8.2" height="7.1" fill="#90CAF9" rx="1"/><rect x="64.2" y="52.9" width="8.2" height="7.1" fill="#90CAF9" rx="1"/><rect x="73.3" y="60.0" width="8.2" height="0.0" fill="#90CAF9" rx="1"/><rect x="82.5" y="52.9" width="8.2" height="7.1" fill="#90CAF9" rx="1"/><rect x="91.7" y="52.9" width="8.2" height="7.1" fill="#90CAF9" rx="1"/><rect x="100.8" y="49.4" width="8.2" height="10.6" fill="#90CAF9" rx="1"/><rect x="110.0" y="49.4" width="8.2" height="10.6" fill="#90CAF9" rx="1"/><rect x="119.2" y="49.4" width="8.2" height="10.6" fill="#90CAF9" rx="1"/><rect x="128.3" y="52.9" width="8.2" height="7.1" fill="#90CAF9" rx="1"/><rect x="137.5" y="35.3" width="8.2" height="24.7" fill="#FFA726" rx="1"/><rect x="146.7" y="52.9" width="8.2" height="7.1" fill="#90CAF9" rx="1"/><rect x="155.8" y="45.9" width="8.2" height="14.1" fill="#90CAF9" rx="1"/><rect x="165.0" y="35.3" width="8.2" height="24.7" fill="#FFA726" rx="1"/><rect x="174.2" y="42.4" width="8.2" height="17.6" fill="#90CAF9" rx="1"/><rect x="183.3" y="45.9" width="8.2" height="14.1" fill="#90CAF9" rx="1"/><rect x="192.5" y="0.0" width="8.2" height="60.0" fill="#B71C1C" rx="1"/><rect x="201.7" y="35.3" width="8.2" height="24.7" fill="#FFA726" rx="1"/><rect x="210.8" y="38.8" width="8.2" height="21.2" fill="#90CAF9" rx="1"/><text x="4.6" y="72" text-anchor="middle" font-size="7" fill="#666">0h</text><text x="59.6" y="72" text-anchor="middle" font-size="7" fill="#666">6h</text><text x="114.6" y="72" text-anchor="middle" font-size="7" fill="#666">12h</text><text x="169.6" y="72" text-anchor="middle" font-size="7" fill="#666">18h</text><text x="215.4" y="72" text-anchor="middle" font-size="7" fill="#666">23h</text></svg></div>`)[0];
+                popup_9060349695232ba38977831a5b8fb171.setContent(html_69719d6a81e32a27c6092c377f61396d);
+            
+        
+
+        circle_marker_0180ebffa40a41aa5f1756b096190ec2.bindPopup(popup_9060349695232ba38977831a5b8fb171)
+        ;
+
+        
+    
+    
+            circle_marker_0180ebffa40a41aa5f1756b096190ec2.bindTooltip(
+                `<div>
+                     ALTO JOSE DO PINHO: 103.0 ocorrências
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_554a4a35789db137784fc4a92d3b2152 = L.circleMarker(
+                [-8.050913238095237, -34.875124285714286],
+                {"bubblingMouseEvents": true, "color": "#90CAF9", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#90CAF9", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.25, "stroke": true, "weight": 3}
+            ).addTo(feature_group_7a7a39f0b8351971506417f7aebbb7de);
+        
+    
+        var popup_85c3a71c039cdc5f09c15b5168dad986 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_5ecebb057423ebfe9dbe71a9e6ba25ed = $(`<div id="html_5ecebb057423ebfe9dbe71a9e6ba25ed" style="width: 100.0%; height: 100.0%;">     <div style="font-family:Arial,sans-serif;font-size:12px;width:220px">       <b style="font-size:14px;color:#B71C1C">BOA VISTA</b><br>       <b>Total:</b> 42 ocorrências<br>       <b>Idade média:</b> 32.9 anos<br>       <b>Gênero predominante:</b> HOMEM CIS<br>       <b>% período noturno:</b> 50%<br>       <hr style="margin:4px 0">       <b>Top tipos:</b><br>  TIRO: 10<br>  DISPARO: 10<br>  HOMICIDIO/TENTATIVA: 10     </div>     </div>`)[0];
+                popup_85c3a71c039cdc5f09c15b5168dad986.setContent(html_5ecebb057423ebfe9dbe71a9e6ba25ed);
+            
+        
+
+        circle_marker_554a4a35789db137784fc4a92d3b2152.bindPopup(popup_85c3a71c039cdc5f09c15b5168dad986)
+        ;
+
+        
+    
+    
+            circle_marker_554a4a35789db137784fc4a92d3b2152.bindTooltip(
+                `<div>
+                     BOA VISTA: 42.0 ocorrências
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_5f7931f5bf067104c32e3b953fd33814 = L.circleMarker(
+                [-8.069578513888889, -34.899916222222224],
+                {"bubblingMouseEvents": true, "color": "#FF7043", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF7043", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.0, "stroke": true, "weight": 3}
+            ).addTo(feature_group_7a7a39f0b8351971506417f7aebbb7de);
+        
+    
+        var popup_e1e8c5d0868f4d327cd4b508ef6d1d72 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_afae2b70517115e1ffc0330ceb2d67ed = $(`<div id="html_afae2b70517115e1ffc0330ceb2d67ed" style="width: 100.0%; height: 100.0%;">     <div style="font-family:Arial,sans-serif;font-size:12px;width:220px">       <b style="font-size:14px;color:#B71C1C">BREJO DA GUARDEIRA</b><br>       <b>Total:</b> 72 ocorrências<br>       <b>Idade média:</b> 29.9 anos<br>       <b>Gênero predominante:</b> HOMEM CIS<br>       <b>% período noturno:</b> 39%<br>       <hr style="margin:4px 0">       <b>Top tipos:</b><br>  HOMICIDIO/TENTATIVA: 29<br>  DISPARO: 18<br>  TIRO: 13     </div>     </div>`)[0];
+                popup_e1e8c5d0868f4d327cd4b508ef6d1d72.setContent(html_afae2b70517115e1ffc0330ceb2d67ed);
+            
+        
+
+        circle_marker_5f7931f5bf067104c32e3b953fd33814.bindPopup(popup_e1e8c5d0868f4d327cd4b508ef6d1d72)
+        ;
+
+        
+    
+    
+            circle_marker_5f7931f5bf067104c32e3b953fd33814.bindTooltip(
+                `<div>
+                     BREJO DA GUARDEIRA: 72.0 ocorrências
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_d81102cffe369996a672653bc1030bb9 = L.circleMarker(
+                [-8.032315660714286, -34.86008733928571],
+                {"bubblingMouseEvents": true, "color": "#FFA726", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFA726", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7.0, "stroke": true, "weight": 3}
+            ).addTo(feature_group_7a7a39f0b8351971506417f7aebbb7de);
+        
+    
+        var popup_147aa33524ae0a0e15c909542901cf80 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_4b67705c2c74c8e91e877da8a59ff269 = $(`<div id="html_4b67705c2c74c8e91e877da8a59ff269" style="width: 100.0%; height: 100.0%;">     <div style="font-family:Arial,sans-serif;font-size:12px;width:220px">       <b style="font-size:14px;color:#B71C1C">CASA AMARELA</b><br>       <b>Total:</b> 56 ocorrências<br>       <b>Idade média:</b> 30.8 anos<br>       <b>Gênero predominante:</b> HOMEM CIS<br>       <b>% período noturno:</b> 62%<br>       <hr style="margin:4px 0">       <b>Top tipos:</b><br>  DISPARO: 17<br>  HOMICIDIO/TENTATIVA: 14<br>  TIRO: 12     </div>     </div>`)[0];
+                popup_147aa33524ae0a0e15c909542901cf80.setContent(html_4b67705c2c74c8e91e877da8a59ff269);
+            
+        
+
+        circle_marker_d81102cffe369996a672653bc1030bb9.bindPopup(popup_147aa33524ae0a0e15c909542901cf80)
+        ;
+
+        
+    
+    
+            circle_marker_d81102cffe369996a672653bc1030bb9.bindTooltip(
+                `<div>
+                     CASA AMARELA: 56.0 ocorrências
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_43d26af5e2a814afa441509455872272 = L.circleMarker(
+                [-8.024947225806452, -34.91963433870968],
+                {"bubblingMouseEvents": true, "color": "#FFA726", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFA726", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7.75, "stroke": true, "weight": 3}
+            ).addTo(feature_group_7a7a39f0b8351971506417f7aebbb7de);
+        
+    
+        var popup_61d3b6a98efa553899706d31d8dea474 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_a391ad04f86ca1c0278d0eb279e8950e = $(`<div id="html_a391ad04f86ca1c0278d0eb279e8950e" style="width: 100.0%; height: 100.0%;">     <div style="font-family:Arial,sans-serif;font-size:12px;width:220px">       <b style="font-size:14px;color:#B71C1C">CAXANGA</b><br>       <b>Total:</b> 62 ocorrências<br>       <b>Idade média:</b> 28.1 anos<br>       <b>Gênero predominante:</b> HOMEM CIS<br>       <b>% período noturno:</b> 47%<br>       <hr style="margin:4px 0">       <b>Top tipos:</b><br>  DISPARO: 23<br>  HOMICIDIO/TENTATIVA: 22<br>  TIRO: 9     </div>     </div>`)[0];
+                popup_61d3b6a98efa553899706d31d8dea474.setContent(html_a391ad04f86ca1c0278d0eb279e8950e);
+            
+        
+
+        circle_marker_43d26af5e2a814afa441509455872272.bindPopup(popup_61d3b6a98efa553899706d31d8dea474)
+        ;
+
+        
+    
+    
+            circle_marker_43d26af5e2a814afa441509455872272.bindTooltip(
+                `<div>
+                     CAXANGA: 62.0 ocorrências
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_34526443e6ce2d9138604c421058aea5 = L.circleMarker(
+                [-8.064928157894736, -34.90485486466165],
+                {"bubblingMouseEvents": true, "color": "#B71C1C", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#B71C1C", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 16.625, "stroke": true, "weight": 3}
+            ).addTo(feature_group_7a7a39f0b8351971506417f7aebbb7de);
+        
+    
+        var popup_391cc7eb6e1db0b86c20e6eb55bfa04c = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_ef65b8b24a3859e10374917ac674205f = $(`<div id="html_ef65b8b24a3859e10374917ac674205f" style="width: 100.0%; height: 100.0%;">     <div style="font-family:Arial,sans-serif;font-size:12px;width:220px">       <b style="font-size:14px;color:#B71C1C">COHAB</b><br>       <b>Total:</b> 133 ocorrências<br>       <b>Idade média:</b> 28.6 anos<br>       <b>Gênero predominante:</b> HOMEM CIS<br>       <b>% período noturno:</b> 44%<br>       <hr style="margin:4px 0">       <b>Top tipos:</b><br>  HOMICIDIO/TENTATIVA: 63<br>  DISPARO: 30<br>  TIRO: 12     </div>     <svg width="220" height="75" xmlns="http://www.w3.org/2000/svg"><text x="110" y="10" text-anchor="middle" font-size="9" fill="#333">COHAB — perfil por hora</text><rect x="0.0" y="49.6" width="8.2" height="10.4" fill="#90CAF9" rx="1"/><rect x="9.2" y="44.3" width="8.2" height="15.7" fill="#90CAF9" rx="1"/><rect x="18.3" y="44.3" width="8.2" height="15.7" fill="#90CAF9" rx="1"/><rect x="27.5" y="36.5" width="8.2" height="23.5" fill="#90CAF9" rx="1"/><rect x="36.7" y="47.0" width="8.2" height="13.0" fill="#90CAF9" rx="1"/><rect x="45.8" y="52.2" width="8.2" height="7.8" fill="#90CAF9" rx="1"/><rect x="55.0" y="54.8" width="8.2" height="5.2" fill="#90CAF9" rx="1"/><rect x="64.2" y="54.8" width="8.2" height="5.2" fill="#90CAF9" rx="1"/><rect x="73.3" y="54.8" width="8.2" height="5.2" fill="#90CAF9" rx="1"/><rect x="82.5" y="57.4" width="8.2" height="2.6" fill="#90CAF9" rx="1"/><rect x="91.7" y="49.6" width="8.2" height="10.4" fill="#90CAF9" rx="1"/><rect x="100.8" y="52.2" width="8.2" height="7.8" fill="#90CAF9" rx="1"/><rect x="110.0" y="49.6" width="8.2" height="10.4" fill="#90CAF9" rx="1"/><rect x="119.2" y="47.0" width="8.2" height="13.0" fill="#90CAF9" rx="1"/><rect x="128.3" y="47.0" width="8.2" height="13.0" fill="#90CAF9" rx="1"/><rect x="137.5" y="44.3" width="8.2" height="15.7" fill="#90CAF9" rx="1"/><rect x="146.7" y="44.3" width="8.2" height="15.7" fill="#90CAF9" rx="1"/><rect x="155.8" y="57.4" width="8.2" height="2.6" fill="#90CAF9" rx="1"/><rect x="165.0" y="41.7" width="8.2" height="18.3" fill="#90CAF9" rx="1"/><rect x="174.2" y="41.7" width="8.2" height="18.3" fill="#90CAF9" rx="1"/><rect x="183.3" y="44.3" width="8.2" height="15.7" fill="#90CAF9" rx="1"/><rect x="192.5" y="0.0" width="8.2" height="60.0" fill="#B71C1C" rx="1"/><rect x="201.7" y="39.1" width="8.2" height="20.9" fill="#90CAF9" rx="1"/><rect x="210.8" y="39.1" width="8.2" height="20.9" fill="#90CAF9" rx="1"/><text x="4.6" y="72" text-anchor="middle" font-size="7" fill="#666">0h</text><text x="59.6" y="72" text-anchor="middle" font-size="7" fill="#666">6h</text><text x="114.6" y="72" text-anchor="middle" font-size="7" fill="#666">12h</text><text x="169.6" y="72" text-anchor="middle" font-size="7" fill="#666">18h</text><text x="215.4" y="72" text-anchor="middle" font-size="7" fill="#666">23h</text></svg></div>`)[0];
+                popup_391cc7eb6e1db0b86c20e6eb55bfa04c.setContent(html_ef65b8b24a3859e10374917ac674205f);
+            
+        
+
+        circle_marker_34526443e6ce2d9138604c421058aea5.bindPopup(popup_391cc7eb6e1db0b86c20e6eb55bfa04c)
+        ;
+
+        
+    
+    
+            circle_marker_34526443e6ce2d9138604c421058aea5.bindTooltip(
+                `<div>
+                     COHAB: 133.0 ocorrências
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_b4fb8bc59d61af511cd8f5ef9eb9cc48 = L.circleMarker(
+                [-8.058091802197803, -34.87271751648351],
+                {"bubblingMouseEvents": true, "color": "#FF7043", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF7043", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 11.375, "stroke": true, "weight": 3}
+            ).addTo(feature_group_7a7a39f0b8351971506417f7aebbb7de);
+        
+    
+        var popup_59c65b74f18b6665f19bb5267afe9fdc = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_74422e4f4533c9098a5531681b73adeb = $(`<div id="html_74422e4f4533c9098a5531681b73adeb" style="width: 100.0%; height: 100.0%;">     <div style="font-family:Arial,sans-serif;font-size:12px;width:220px">       <b style="font-size:14px;color:#B71C1C">CORDOARIA</b><br>       <b>Total:</b> 91 ocorrências<br>       <b>Idade média:</b> 30.2 anos<br>       <b>Gênero predominante:</b> HOMEM CIS<br>       <b>% período noturno:</b> 46%<br>       <hr style="margin:4px 0">       <b>Top tipos:</b><br>  HOMICIDIO/TENTATIVA: 31<br>  DISPARO: 24<br>  TIRO: 14     </div>     <svg width="220" height="75" xmlns="http://www.w3.org/2000/svg"><text x="110" y="10" text-anchor="middle" font-size="9" fill="#333">CORDOARIA — perfil por hora</text><rect x="0.0" y="48.0" width="8.2" height="12.0" fill="#90CAF9" rx="1"/><rect x="9.2" y="44.0" width="8.2" height="16.0" fill="#90CAF9" rx="1"/><rect x="18.3" y="36.0" width="8.2" height="24.0" fill="#FFA726" rx="1"/><rect x="27.5" y="44.0" width="8.2" height="16.0" fill="#90CAF9" rx="1"/><rect x="36.7" y="48.0" width="8.2" height="12.0" fill="#90CAF9" rx="1"/><rect x="45.8" y="56.0" width="8.2" height="4.0" fill="#90CAF9" rx="1"/><rect x="55.0" y="44.0" width="8.2" height="16.0" fill="#90CAF9" rx="1"/><rect x="64.2" y="52.0" width="8.2" height="8.0" fill="#90CAF9" rx="1"/><rect x="73.3" y="60.0" width="8.2" height="0.0" fill="#90CAF9" rx="1"/><rect x="82.5" y="56.0" width="8.2" height="4.0" fill="#90CAF9" rx="1"/><rect x="91.7" y="60.0" width="8.2" height="0.0" fill="#90CAF9" rx="1"/><rect x="100.8" y="52.0" width="8.2" height="8.0" fill="#90CAF9" rx="1"/><rect x="110.0" y="56.0" width="8.2" height="4.0" fill="#90CAF9" rx="1"/><rect x="119.2" y="56.0" width="8.2" height="4.0" fill="#90CAF9" rx="1"/><rect x="128.3" y="48.0" width="8.2" height="12.0" fill="#90CAF9" rx="1"/><rect x="137.5" y="48.0" width="8.2" height="12.0" fill="#90CAF9" rx="1"/><rect x="146.7" y="40.0" width="8.2" height="20.0" fill="#90CAF9" rx="1"/><rect x="155.8" y="36.0" width="8.2" height="24.0" fill="#FFA726" rx="1"/><rect x="165.0" y="44.0" width="8.2" height="16.0" fill="#90CAF9" rx="1"/><rect x="174.2" y="36.0" width="8.2" height="24.0" fill="#FFA726" rx="1"/><rect x="183.3" y="20.0" width="8.2" height="40.0" fill="#FFA726" rx="1"/><rect x="192.5" y="0.0" width="8.2" height="60.0" fill="#B71C1C" rx="1"/><rect x="201.7" y="36.0" width="8.2" height="24.0" fill="#FFA726" rx="1"/><rect x="210.8" y="56.0" width="8.2" height="4.0" fill="#90CAF9" rx="1"/><text x="4.6" y="72" text-anchor="middle" font-size="7" fill="#666">0h</text><text x="59.6" y="72" text-anchor="middle" font-size="7" fill="#666">6h</text><text x="114.6" y="72" text-anchor="middle" font-size="7" fill="#666">12h</text><text x="169.6" y="72" text-anchor="middle" font-size="7" fill="#666">18h</text><text x="215.4" y="72" text-anchor="middle" font-size="7" fill="#666">23h</text></svg></div>`)[0];
+                popup_59c65b74f18b6665f19bb5267afe9fdc.setContent(html_74422e4f4533c9098a5531681b73adeb);
+            
+        
+
+        circle_marker_b4fb8bc59d61af511cd8f5ef9eb9cc48.bindPopup(popup_59c65b74f18b6665f19bb5267afe9fdc)
+        ;
+
+        
+    
+    
+            circle_marker_b4fb8bc59d61af511cd8f5ef9eb9cc48.bindTooltip(
+                `<div>
+                     CORDOARIA: 91.0 ocorrências
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_a0db195f0d56a6dbe42c2eb00cec7627 = L.circleMarker(
+                [-8.070810638554217, -34.909734602409635],
+                {"bubblingMouseEvents": true, "color": "#FF7043", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF7043", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10.375, "stroke": true, "weight": 3}
+            ).addTo(feature_group_7a7a39f0b8351971506417f7aebbb7de);
+        
+    
+        var popup_822bdffcad71c88abef522d15a01b924 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_281d9e161c358a8a87ec5c931431944a = $(`<div id="html_281d9e161c358a8a87ec5c931431944a" style="width: 100.0%; height: 100.0%;">     <div style="font-family:Arial,sans-serif;font-size:12px;width:220px">       <b style="font-size:14px;color:#B71C1C">CURADO</b><br>       <b>Total:</b> 83 ocorrências<br>       <b>Idade média:</b> 27.9 anos<br>       <b>Gênero predominante:</b> HOMEM CIS<br>       <b>% período noturno:</b> 53%<br>       <hr style="margin:4px 0">       <b>Top tipos:</b><br>  HOMICIDIO/TENTATIVA: 32<br>  DISPARO: 25<br>  TIRO: 10     </div>     <svg width="220" height="75" xmlns="http://www.w3.org/2000/svg"><text x="110" y="10" text-anchor="middle" font-size="9" fill="#333">CURADO — perfil por hora</text><rect x="0.0" y="48.0" width="8.2" height="12.0" fill="#90CAF9" rx="1"/><rect x="9.2" y="48.0" width="8.2" height="12.0" fill="#90CAF9" rx="1"/><rect x="18.3" y="48.0" width="8.2" height="12.0" fill="#90CAF9" rx="1"/><rect x="27.5" y="56.0" width="8.2" height="4.0" fill="#90CAF9" rx="1"/><rect x="36.7" y="48.0" width="8.2" height="12.0" fill="#90CAF9" rx="1"/><rect x="45.8" y="48.0" width="8.2" height="12.0" fill="#90CAF9" rx="1"/><rect x="55.0" y="52.0" width="8.2" height="8.0" fill="#90CAF9" rx="1"/><rect x="64.2" y="60.0" width="8.2" height="0.0" fill="#90CAF9" rx="1"/><rect x="73.3" y="60.0" width="8.2" height="0.0" fill="#90CAF9" rx="1"/><rect x="82.5" y="60.0" width="8.2" height="0.0" fill="#90CAF9" rx="1"/><rect x="91.7" y="48.0" width="8.2" height="12.0" fill="#90CAF9" rx="1"/><rect x="100.8" y="56.0" width="8.2" height="4.0" fill="#90CAF9" rx="1"/><rect x="110.0" y="52.0" width="8.2" height="8.0" fill="#90CAF9" rx="1"/><rect x="119.2" y="52.0" width="8.2" height="8.0" fill="#90CAF9" rx="1"/><rect x="128.3" y="48.0" width="8.2" height="12.0" fill="#90CAF9" rx="1"/><rect x="137.5" y="56.0" width="8.2" height="4.0" fill="#90CAF9" rx="1"/><rect x="146.7" y="40.0" width="8.2" height="20.0" fill="#90CAF9" rx="1"/><rect x="155.8" y="44.0" width="8.2" height="16.0" fill="#90CAF9" rx="1"/><rect x="165.0" y="36.0" width="8.2" height="24.0" fill="#FFA726" rx="1"/><rect x="174.2" y="28.0" width="8.2" height="32.0" fill="#FFA726" rx="1"/><rect x="183.3" y="44.0" width="8.2" height="16.0" fill="#90CAF9" rx="1"/><rect x="192.5" y="0.0" width="8.2" height="60.0" fill="#B71C1C" rx="1"/><rect x="201.7" y="24.0" width="8.2" height="36.0" fill="#FFA726" rx="1"/><rect x="210.8" y="52.0" width="8.2" height="8.0" fill="#90CAF9" rx="1"/><text x="4.6" y="72" text-anchor="middle" font-size="7" fill="#666">0h</text><text x="59.6" y="72" text-anchor="middle" font-size="7" fill="#666">6h</text><text x="114.6" y="72" text-anchor="middle" font-size="7" fill="#666">12h</text><text x="169.6" y="72" text-anchor="middle" font-size="7" fill="#666">18h</text><text x="215.4" y="72" text-anchor="middle" font-size="7" fill="#666">23h</text></svg></div>`)[0];
+                popup_822bdffcad71c88abef522d15a01b924.setContent(html_281d9e161c358a8a87ec5c931431944a);
+            
+        
+
+        circle_marker_a0db195f0d56a6dbe42c2eb00cec7627.bindPopup(popup_822bdffcad71c88abef522d15a01b924)
+        ;
+
+        
+    
+    
+            circle_marker_a0db195f0d56a6dbe42c2eb00cec7627.bindTooltip(
+                `<div>
+                     CURADO: 83.0 ocorrências
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_d5fc656051d7685ff328f77f258204b4 = L.circleMarker(
+                [-8.042346395348837, -34.86770211627907],
+                {"bubblingMouseEvents": true, "color": "#90CAF9", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#90CAF9", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.375, "stroke": true, "weight": 3}
+            ).addTo(feature_group_7a7a39f0b8351971506417f7aebbb7de);
+        
+    
+        var popup_58393fa6892171769da031015e73b94a = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_451740f394e71136388761b8a4b6838d = $(`<div id="html_451740f394e71136388761b8a4b6838d" style="width: 100.0%; height: 100.0%;">     <div style="font-family:Arial,sans-serif;font-size:12px;width:220px">       <b style="font-size:14px;color:#B71C1C">ESPINHEIRO</b><br>       <b>Total:</b> 43 ocorrências<br>       <b>Idade média:</b> 32.1 anos<br>       <b>Gênero predominante:</b> HOMEM CIS<br>       <b>% período noturno:</b> 51%<br>       <hr style="margin:4px 0">       <b>Top tipos:</b><br>  DISPARO: 13<br>  HOMICIDIO/TENTATIVA: 10<br>  AMEACA: 8     </div>     </div>`)[0];
+                popup_58393fa6892171769da031015e73b94a.setContent(html_451740f394e71136388761b8a4b6838d);
+            
+        
+
+        circle_marker_d5fc656051d7685ff328f77f258204b4.bindPopup(popup_58393fa6892171769da031015e73b94a)
+        ;
+
+        
+    
+    
+            circle_marker_d5fc656051d7685ff328f77f258204b4.bindTooltip(
+                `<div>
+                     ESPINHEIRO: 43.0 ocorrências
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_8416a64b6799bffbfd489fce2dadb0f5 = L.circleMarker(
+                [-8.0533651125, -34.871061787500004],
+                {"bubblingMouseEvents": true, "color": "#FF7043", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF7043", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10.0, "stroke": true, "weight": 3}
+            ).addTo(feature_group_7a7a39f0b8351971506417f7aebbb7de);
+        
+    
+        var popup_8dc5356eb840d4d6429598b91c12f7c4 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_58f421bc20a4a4e59d5e2999e38f289d = $(`<div id="html_58f421bc20a4a4e59d5e2999e38f289d" style="width: 100.0%; height: 100.0%;">     <div style="font-family:Arial,sans-serif;font-size:12px;width:220px">       <b style="font-size:14px;color:#B71C1C">ESTACAO</b><br>       <b>Total:</b> 80 ocorrências<br>       <b>Idade média:</b> 29.2 anos<br>       <b>Gênero predominante:</b> HOMEM CIS<br>       <b>% período noturno:</b> 48%<br>       <hr style="margin:4px 0">       <b>Top tipos:</b><br>  HOMICIDIO/TENTATIVA: 30<br>  DISPARO: 18<br>  TIRO: 15     </div>     </div>`)[0];
+                popup_8dc5356eb840d4d6429598b91c12f7c4.setContent(html_58f421bc20a4a4e59d5e2999e38f289d);
+            
+        
+
+        circle_marker_8416a64b6799bffbfd489fce2dadb0f5.bindPopup(popup_8dc5356eb840d4d6429598b91c12f7c4)
+        ;
+
+        
+    
+    
+            circle_marker_8416a64b6799bffbfd489fce2dadb0f5.bindTooltip(
+                `<div>
+                     ESTACAO: 80.0 ocorrências
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_63517fefe8afe9e3129342a19ab600cb = L.circleMarker(
+                [-8.042172205882352, -34.86991994117647],
+                {"bubblingMouseEvents": true, "color": "#90CAF9", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#90CAF9", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(feature_group_7a7a39f0b8351971506417f7aebbb7de);
+        
+    
+        var popup_18dfc7d6083147971e0aae24495c960d = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_7589d10521568573fdcb693dcc2b3ea3 = $(`<div id="html_7589d10521568573fdcb693dcc2b3ea3" style="width: 100.0%; height: 100.0%;">     <div style="font-family:Arial,sans-serif;font-size:12px;width:220px">       <b style="font-size:14px;color:#B71C1C">GRACO</b><br>       <b>Total:</b> 34 ocorrências<br>       <b>Idade média:</b> 29.6 anos<br>       <b>Gênero predominante:</b> HOMEM CIS<br>       <b>% período noturno:</b> 50%<br>       <hr style="margin:4px 0">       <b>Top tipos:</b><br>  HOMICIDIO/TENTATIVA: 12<br>  TIRO: 6<br>  AMEACA: 6     </div>     </div>`)[0];
+                popup_18dfc7d6083147971e0aae24495c960d.setContent(html_7589d10521568573fdcb693dcc2b3ea3);
+            
+        
+
+        circle_marker_63517fefe8afe9e3129342a19ab600cb.bindPopup(popup_18dfc7d6083147971e0aae24495c960d)
+        ;
+
+        
+    
+    
+            circle_marker_63517fefe8afe9e3129342a19ab600cb.bindTooltip(
+                `<div>
+                     GRACO: 34.0 ocorrências
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_1bb4ee9f002db2847530e9d34cfce5eb = L.circleMarker(
+                [-8.081976939999999, -34.89204029333333],
+                {"bubblingMouseEvents": true, "color": "#B71C1C", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#B71C1C", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 18.75, "stroke": true, "weight": 3}
+            ).addTo(feature_group_7a7a39f0b8351971506417f7aebbb7de);
+        
+    
+        var popup_b81be9fee5ed0945210ac53805fc2e77 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_63c03a0c4d909b3a0b814e5e79f0af82 = $(`<div id="html_63c03a0c4d909b3a0b814e5e79f0af82" style="width: 100.0%; height: 100.0%;">     <div style="font-family:Arial,sans-serif;font-size:12px;width:220px">       <b style="font-size:14px;color:#B71C1C">IBURA</b><br>       <b>Total:</b> 150 ocorrências<br>       <b>Idade média:</b> 30.4 anos<br>       <b>Gênero predominante:</b> HOMEM CIS<br>       <b>% período noturno:</b> 45%<br>       <hr style="margin:4px 0">       <b>Top tipos:</b><br>  HOMICIDIO/TENTATIVA: 46<br>  DISPARO: 45<br>  AMEACA: 22     </div>     <svg width="220" height="75" xmlns="http://www.w3.org/2000/svg"><text x="110" y="10" text-anchor="middle" font-size="9" fill="#333">IBURA — perfil por hora</text><rect x="0.0" y="49.7" width="8.2" height="10.3" fill="#90CAF9" rx="1"/><rect x="9.2" y="47.6" width="8.2" height="12.4" fill="#90CAF9" rx="1"/><rect x="18.3" y="37.2" width="8.2" height="22.8" fill="#90CAF9" rx="1"/><rect x="27.5" y="41.4" width="8.2" height="18.6" fill="#90CAF9" rx="1"/><rect x="36.7" y="47.6" width="8.2" height="12.4" fill="#90CAF9" rx="1"/><rect x="45.8" y="55.9" width="8.2" height="4.1" fill="#90CAF9" rx="1"/><rect x="55.0" y="51.7" width="8.2" height="8.3" fill="#90CAF9" rx="1"/><rect x="64.2" y="55.9" width="8.2" height="4.1" fill="#90CAF9" rx="1"/><rect x="73.3" y="57.9" width="8.2" height="2.1" fill="#90CAF9" rx="1"/><rect x="82.5" y="60.0" width="8.2" height="0.0" fill="#90CAF9" rx="1"/><rect x="91.7" y="55.9" width="8.2" height="4.1" fill="#90CAF9" rx="1"/><rect x="100.8" y="55.9" width="8.2" height="4.1" fill="#90CAF9" rx="1"/><rect x="110.0" y="55.9" width="8.2" height="4.1" fill="#90CAF9" rx="1"/><rect x="119.2" y="53.8" width="8.2" height="6.2" fill="#90CAF9" rx="1"/><rect x="128.3" y="47.6" width="8.2" height="12.4" fill="#90CAF9" rx="1"/><rect x="137.5" y="47.6" width="8.2" height="12.4" fill="#90CAF9" rx="1"/><rect x="146.7" y="43.4" width="8.2" height="16.6" fill="#90CAF9" rx="1"/><rect x="155.8" y="45.5" width="8.2" height="14.5" fill="#90CAF9" rx="1"/><rect x="165.0" y="45.5" width="8.2" height="14.5" fill="#90CAF9" rx="1"/><rect x="174.2" y="41.4" width="8.2" height="18.6" fill="#90CAF9" rx="1"/><rect x="183.3" y="41.4" width="8.2" height="18.6" fill="#90CAF9" rx="1"/><rect x="192.5" y="0.0" width="8.2" height="60.0" fill="#B71C1C" rx="1"/><rect x="201.7" y="47.6" width="8.2" height="12.4" fill="#90CAF9" rx="1"/><rect x="210.8" y="43.4" width="8.2" height="16.6" fill="#90CAF9" rx="1"/><text x="4.6" y="72" text-anchor="middle" font-size="7" fill="#666">0h</text><text x="59.6" y="72" text-anchor="middle" font-size="7" fill="#666">6h</text><text x="114.6" y="72" text-anchor="middle" font-size="7" fill="#666">12h</text><text x="169.6" y="72" text-anchor="middle" font-size="7" fill="#666">18h</text><text x="215.4" y="72" text-anchor="middle" font-size="7" fill="#666">23h</text></svg></div>`)[0];
+                popup_b81be9fee5ed0945210ac53805fc2e77.setContent(html_63c03a0c4d909b3a0b814e5e79f0af82);
+            
+        
+
+        circle_marker_1bb4ee9f002db2847530e9d34cfce5eb.bindPopup(popup_b81be9fee5ed0945210ac53805fc2e77)
+        ;
+
+        
+    
+    
+            circle_marker_1bb4ee9f002db2847530e9d34cfce5eb.bindTooltip(
+                `<div>
+                     IBURA: 150.0 ocorrências
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_bd44da532866fd965e0b0dc5cc5da183 = L.circleMarker(
+                [-8.02850566891892, -34.89291798648649],
+                {"bubblingMouseEvents": true, "color": "#B71C1C", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#B71C1C", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 18.5, "stroke": true, "weight": 3}
+            ).addTo(feature_group_7a7a39f0b8351971506417f7aebbb7de);
+        
+    
+        var popup_37b47b28e5543472143eb6c92767e631 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_70d66e9c705ef8d99ad0e2ae9771c36a = $(`<div id="html_70d66e9c705ef8d99ad0e2ae9771c36a" style="width: 100.0%; height: 100.0%;">     <div style="font-family:Arial,sans-serif;font-size:12px;width:220px">       <b style="font-size:14px;color:#B71C1C">IPUTINGA</b><br>       <b>Total:</b> 148 ocorrências<br>       <b>Idade média:</b> 30.1 anos<br>       <b>Gênero predominante:</b> HOMEM CIS<br>       <b>% período noturno:</b> 49%<br>       <hr style="margin:4px 0">       <b>Top tipos:</b><br>  HOMICIDIO/TENTATIVA: 44<br>  DISPARO: 35<br>  TIRO: 25     </div>     <svg width="220" height="75" xmlns="http://www.w3.org/2000/svg"><text x="110" y="10" text-anchor="middle" font-size="9" fill="#333">IPUTINGA — perfil por hora</text><rect x="0.0" y="48.0" width="8.2" height="12.0" fill="#90CAF9" rx="1"/><rect x="9.2" y="50.4" width="8.2" height="9.6" fill="#90CAF9" rx="1"/><rect x="18.3" y="45.6" width="8.2" height="14.4" fill="#90CAF9" rx="1"/><rect x="27.5" y="38.4" width="8.2" height="21.6" fill="#90CAF9" rx="1"/><rect x="36.7" y="55.2" width="8.2" height="4.8" fill="#90CAF9" rx="1"/><rect x="45.8" y="52.8" width="8.2" height="7.2" fill="#90CAF9" rx="1"/><rect x="55.0" y="55.2" width="8.2" height="4.8" fill="#90CAF9" rx="1"/><rect x="64.2" y="55.2" width="8.2" height="4.8" fill="#90CAF9" rx="1"/><rect x="73.3" y="60.0" width="8.2" height="0.0" fill="#90CAF9" rx="1"/><rect x="82.5" y="52.8" width="8.2" height="7.2" fill="#90CAF9" rx="1"/><rect x="91.7" y="50.4" width="8.2" height="9.6" fill="#90CAF9" rx="1"/><rect x="100.8" y="57.6" width="8.2" height="2.4" fill="#90CAF9" rx="1"/><rect x="110.0" y="55.2" width="8.2" height="4.8" fill="#90CAF9" rx="1"/><rect x="119.2" y="48.0" width="8.2" height="12.0" fill="#90CAF9" rx="1"/><rect x="128.3" y="52.8" width="8.2" height="7.2" fill="#90CAF9" rx="1"/><rect x="137.5" y="33.6" width="8.2" height="26.4" fill="#FFA726" rx="1"/><rect x="146.7" y="43.2" width="8.2" height="16.8" fill="#90CAF9" rx="1"/><rect x="155.8" y="45.6" width="8.2" height="14.4" fill="#90CAF9" rx="1"/><rect x="165.0" y="43.2" width="8.2" height="16.8" fill="#90CAF9" rx="1"/><rect x="174.2" y="36.0" width="8.2" height="24.0" fill="#FFA726" rx="1"/><rect x="183.3" y="33.6" width="8.2" height="26.4" fill="#FFA726" rx="1"/><rect x="192.5" y="0.0" width="8.2" height="60.0" fill="#B71C1C" rx="1"/><rect x="201.7" y="33.6" width="8.2" height="26.4" fill="#FFA726" rx="1"/><rect x="210.8" y="38.4" width="8.2" height="21.6" fill="#90CAF9" rx="1"/><text x="4.6" y="72" text-anchor="middle" font-size="7" fill="#666">0h</text><text x="59.6" y="72" text-anchor="middle" font-size="7" fill="#666">6h</text><text x="114.6" y="72" text-anchor="middle" font-size="7" fill="#666">12h</text><text x="169.6" y="72" text-anchor="middle" font-size="7" fill="#666">18h</text><text x="215.4" y="72" text-anchor="middle" font-size="7" fill="#666">23h</text></svg></div>`)[0];
+                popup_37b47b28e5543472143eb6c92767e631.setContent(html_70d66e9c705ef8d99ad0e2ae9771c36a);
+            
+        
+
+        circle_marker_bd44da532866fd965e0b0dc5cc5da183.bindPopup(popup_37b47b28e5543472143eb6c92767e631)
+        ;
+
+        
+    
+    
+            circle_marker_bd44da532866fd965e0b0dc5cc5da183.bindTooltip(
+                `<div>
+                     IPUTINGA: 148.0 ocorrências
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_13f96e82172b2505d0d9d6aceb23ba15 = L.circleMarker(
+                [-8.038205871794872, -34.86765956410257],
+                {"bubblingMouseEvents": true, "color": "#90CAF9", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#90CAF9", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(feature_group_7a7a39f0b8351971506417f7aebbb7de);
+        
+    
+        var popup_b4e9a42d158319bb344e03de9e511a08 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_af4d0f881c869842a2adf29f122b369f = $(`<div id="html_af4d0f881c869842a2adf29f122b369f" style="width: 100.0%; height: 100.0%;">     <div style="font-family:Arial,sans-serif;font-size:12px;width:220px">       <b style="font-size:14px;color:#B71C1C">JAQUEIRA</b><br>       <b>Total:</b> 39 ocorrências<br>       <b>Idade média:</b> 30.8 anos<br>       <b>Gênero predominante:</b> HOMEM CIS<br>       <b>% período noturno:</b> 51%<br>       <hr style="margin:4px 0">       <b>Top tipos:</b><br>  HOMICIDIO/TENTATIVA: 15<br>  TIRO: 11<br>  AMEACA: 7     </div>     </div>`)[0];
+                popup_b4e9a42d158319bb344e03de9e511a08.setContent(html_af4d0f881c869842a2adf29f122b369f);
+            
+        
+
+        circle_marker_13f96e82172b2505d0d9d6aceb23ba15.bindPopup(popup_b4e9a42d158319bb344e03de9e511a08)
+        ;
+
+        
+    
+    
+            circle_marker_13f96e82172b2505d0d9d6aceb23ba15.bindTooltip(
+                `<div>
+                     JAQUEIRA: 39.0 ocorrências
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_af82a944ba24ba0b6ad51acd8257650a = L.circleMarker(
+                [-8.005309828125, -34.854765171875],
+                {"bubblingMouseEvents": true, "color": "#FFA726", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFA726", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.0, "stroke": true, "weight": 3}
+            ).addTo(feature_group_7a7a39f0b8351971506417f7aebbb7de);
+        
+    
+        var popup_e629da52e5f58417a59debfa6dd94453 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_74e017f03412058a0aaae1b6137eff67 = $(`<div id="html_74e017f03412058a0aaae1b6137eff67" style="width: 100.0%; height: 100.0%;">     <div style="font-family:Arial,sans-serif;font-size:12px;width:220px">       <b style="font-size:14px;color:#B71C1C">JARDIM SAO PAULO</b><br>       <b>Total:</b> 64 ocorrências<br>       <b>Idade média:</b> 29.4 anos<br>       <b>Gênero predominante:</b> HOMEM CIS<br>       <b>% período noturno:</b> 48%<br>       <hr style="margin:4px 0">       <b>Top tipos:</b><br>  HOMICIDIO/TENTATIVA: 22<br>  DISPARO: 20<br>  TIRO: 7     </div>     </div>`)[0];
+                popup_e629da52e5f58417a59debfa6dd94453.setContent(html_74e017f03412058a0aaae1b6137eff67);
+            
+        
+
+        circle_marker_af82a944ba24ba0b6ad51acd8257650a.bindPopup(popup_e629da52e5f58417a59debfa6dd94453)
+        ;
+
+        
+    
+    
+            circle_marker_af82a944ba24ba0b6ad51acd8257650a.bindTooltip(
+                `<div>
+                     JARDIM SAO PAULO: 64.0 ocorrências
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_055530c5f6b69a0658d990b63ec74024 = L.circleMarker(
+                [-8.010436695652174, -34.869941],
+                {"bubblingMouseEvents": true, "color": "#FF7043", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF7043", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 11.5, "stroke": true, "weight": 3}
+            ).addTo(feature_group_7a7a39f0b8351971506417f7aebbb7de);
+        
+    
+        var popup_cea1a402421a15d6b7d489b9c1140e2c = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_fe15b334c18d4d0e0d0a63e92bf95fa9 = $(`<div id="html_fe15b334c18d4d0e0d0a63e92bf95fa9" style="width: 100.0%; height: 100.0%;">     <div style="font-family:Arial,sans-serif;font-size:12px;width:220px">       <b style="font-size:14px;color:#B71C1C">MANGABEIRA</b><br>       <b>Total:</b> 92 ocorrências<br>       <b>Idade média:</b> 30.0 anos<br>       <b>Gênero predominante:</b> HOMEM CIS<br>       <b>% período noturno:</b> 43%<br>       <hr style="margin:4px 0">       <b>Top tipos:</b><br>  DISPARO: 34<br>  HOMICIDIO/TENTATIVA: 21<br>  AMEACA: 12     </div>     <svg width="220" height="75" xmlns="http://www.w3.org/2000/svg"><text x="110" y="10" text-anchor="middle" font-size="9" fill="#333">MANGABEIRA — perfil por hora</text><rect x="0.0" y="60.0" width="8.2" height="0.0" fill="#90CAF9" rx="1"/><rect x="9.2" y="41.5" width="8.2" height="18.5" fill="#90CAF9" rx="1"/><rect x="18.3" y="32.3" width="8.2" height="27.7" fill="#FFA726" rx="1"/><rect x="27.5" y="41.5" width="8.2" height="18.5" fill="#90CAF9" rx="1"/><rect x="36.7" y="46.2" width="8.2" height="13.8" fill="#90CAF9" rx="1"/><rect x="45.8" y="55.4" width="8.2" height="4.6" fill="#90CAF9" rx="1"/><rect x="55.0" y="55.4" width="8.2" height="4.6" fill="#90CAF9" rx="1"/><rect x="64.2" y="50.8" width="8.2" height="9.2" fill="#90CAF9" rx="1"/><rect x="73.3" y="60.0" width="8.2" height="0.0" fill="#90CAF9" rx="1"/><rect x="82.5" y="55.4" width="8.2" height="4.6" fill="#90CAF9" rx="1"/><rect x="91.7" y="55.4" width="8.2" height="4.6" fill="#90CAF9" rx="1"/><rect x="100.8" y="41.5" width="8.2" height="18.5" fill="#90CAF9" rx="1"/><rect x="110.0" y="46.2" width="8.2" height="13.8" fill="#90CAF9" rx="1"/><rect x="119.2" y="50.8" width="8.2" height="9.2" fill="#90CAF9" rx="1"/><rect x="128.3" y="55.4" width="8.2" height="4.6" fill="#90CAF9" rx="1"/><rect x="137.5" y="27.7" width="8.2" height="32.3" fill="#FFA726" rx="1"/><rect x="146.7" y="13.8" width="8.2" height="46.2" fill="#B71C1C" rx="1"/><rect x="155.8" y="50.8" width="8.2" height="9.2" fill="#90CAF9" rx="1"/><rect x="165.0" y="32.3" width="8.2" height="27.7" fill="#FFA726" rx="1"/><rect x="174.2" y="46.2" width="8.2" height="13.8" fill="#90CAF9" rx="1"/><rect x="183.3" y="13.8" width="8.2" height="46.2" fill="#B71C1C" rx="1"/><rect x="192.5" y="0.0" width="8.2" height="60.0" fill="#B71C1C" rx="1"/><rect x="201.7" y="32.3" width="8.2" height="27.7" fill="#FFA726" rx="1"/><rect x="210.8" y="50.8" width="8.2" height="9.2" fill="#90CAF9" rx="1"/><text x="4.6" y="72" text-anchor="middle" font-size="7" fill="#666">0h</text><text x="59.6" y="72" text-anchor="middle" font-size="7" fill="#666">6h</text><text x="114.6" y="72" text-anchor="middle" font-size="7" fill="#666">12h</text><text x="169.6" y="72" text-anchor="middle" font-size="7" fill="#666">18h</text><text x="215.4" y="72" text-anchor="middle" font-size="7" fill="#666">23h</text></svg></div>`)[0];
+                popup_cea1a402421a15d6b7d489b9c1140e2c.setContent(html_fe15b334c18d4d0e0d0a63e92bf95fa9);
+            
+        
+
+        circle_marker_055530c5f6b69a0658d990b63ec74024.bindPopup(popup_cea1a402421a15d6b7d489b9c1140e2c)
+        ;
+
+        
+    
+    
+            circle_marker_055530c5f6b69a0658d990b63ec74024.bindTooltip(
+                `<div>
+                     MANGABEIRA: 92.0 ocorrências
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_0ebb7d4f64a9c6024fb395243dc042cc = L.circleMarker(
+                [-8.014923636363637, -34.86460424025974],
+                {"bubblingMouseEvents": true, "color": "#B71C1C", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#B71C1C", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 19.25, "stroke": true, "weight": 3}
+            ).addTo(feature_group_7a7a39f0b8351971506417f7aebbb7de);
+        
+    
+        var popup_b8e8ef63b42d3a1307a63bb71150eb02 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_8bffbc81f27e0385edc4c3c64da9aba4 = $(`<div id="html_8bffbc81f27e0385edc4c3c64da9aba4" style="width: 100.0%; height: 100.0%;">     <div style="font-family:Arial,sans-serif;font-size:12px;width:220px">       <b style="font-size:14px;color:#B71C1C">NOVA DESCOBERTA</b><br>       <b>Total:</b> 154 ocorrências<br>       <b>Idade média:</b> 30.6 anos<br>       <b>Gênero predominante:</b> HOMEM CIS<br>       <b>% período noturno:</b> 45%<br>       <hr style="margin:4px 0">       <b>Top tipos:</b><br>  HOMICIDIO/TENTATIVA: 44<br>  DISPARO: 43<br>  TIRO: 28     </div>     <svg width="220" height="75" xmlns="http://www.w3.org/2000/svg"><text x="110" y="10" text-anchor="middle" font-size="9" fill="#333">NOVA DESCOBERTA — perfil por hora</text><rect x="0.0" y="52.0" width="8.2" height="8.0" fill="#90CAF9" rx="1"/><rect x="9.2" y="12.0" width="8.2" height="48.0" fill="#B71C1C" rx="1"/><rect x="18.3" y="28.0" width="8.2" height="32.0" fill="#FFA726" rx="1"/><rect x="27.5" y="40.0" width="8.2" height="20.0" fill="#90CAF9" rx="1"/><rect x="36.7" y="52.0" width="8.2" height="8.0" fill="#90CAF9" rx="1"/><rect x="45.8" y="48.0" width="8.2" height="12.0" fill="#90CAF9" rx="1"/><rect x="55.0" y="52.0" width="8.2" height="8.0" fill="#90CAF9" rx="1"/><rect x="64.2" y="48.0" width="8.2" height="12.0" fill="#90CAF9" rx="1"/><rect x="73.3" y="48.0" width="8.2" height="12.0" fill="#90CAF9" rx="1"/><rect x="82.5" y="56.0" width="8.2" height="4.0" fill="#90CAF9" rx="1"/><rect x="91.7" y="44.0" width="8.2" height="16.0" fill="#90CAF9" rx="1"/><rect x="100.8" y="44.0" width="8.2" height="16.0" fill="#90CAF9" rx="1"/><rect x="110.0" y="24.0" width="8.2" height="36.0" fill="#FFA726" rx="1"/><rect x="119.2" y="44.0" width="8.2" height="16.0" fill="#90CAF9" rx="1"/><rect x="128.3" y="36.0" width="8.2" height="24.0" fill="#FFA726" rx="1"/><rect x="137.5" y="60.0" width="8.2" height="0.0" fill="#90CAF9" rx="1"/><rect x="146.7" y="20.0" width="8.2" height="40.0" fill="#FFA726" rx="1"/><rect x="155.8" y="32.0" width="8.2" height="28.0" fill="#FFA726" rx="1"/><rect x="165.0" y="24.0" width="8.2" height="36.0" fill="#FFA726" rx="1"/><rect x="174.2" y="0.0" width="8.2" height="60.0" fill="#B71C1C" rx="1"/><rect x="183.3" y="12.0" width="8.2" height="48.0" fill="#B71C1C" rx="1"/><rect x="192.5" y="0.0" width="8.2" height="60.0" fill="#B71C1C" rx="1"/><rect x="201.7" y="20.0" width="8.2" height="40.0" fill="#FFA726" rx="1"/><rect x="210.8" y="28.0" width="8.2" height="32.0" fill="#FFA726" rx="1"/><text x="4.6" y="72" text-anchor="middle" font-size="7" fill="#666">0h</text><text x="59.6" y="72" text-anchor="middle" font-size="7" fill="#666">6h</text><text x="114.6" y="72" text-anchor="middle" font-size="7" fill="#666">12h</text><text x="169.6" y="72" text-anchor="middle" font-size="7" fill="#666">18h</text><text x="215.4" y="72" text-anchor="middle" font-size="7" fill="#666">23h</text></svg></div>`)[0];
+                popup_b8e8ef63b42d3a1307a63bb71150eb02.setContent(html_8bffbc81f27e0385edc4c3c64da9aba4);
+            
+        
+
+        circle_marker_0ebb7d4f64a9c6024fb395243dc042cc.bindPopup(popup_b8e8ef63b42d3a1307a63bb71150eb02)
+        ;
+
+        
+    
+    
+            circle_marker_0ebb7d4f64a9c6024fb395243dc042cc.bindTooltip(
+                `<div>
+                     NOVA DESCOBERTA: 154.0 ocorrências
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_d45375b5e79b86c74ac86d3f789aafb6 = L.circleMarker(
+                [-8.03498678125, -34.862019125],
+                {"bubblingMouseEvents": true, "color": "#90CAF9", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#90CAF9", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(feature_group_7a7a39f0b8351971506417f7aebbb7de);
+        
+    
+        var popup_5a21cecd052255d4af2836e564801e6b = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_391a6e3cf88f7e422bad5279636e0c25 = $(`<div id="html_391a6e3cf88f7e422bad5279636e0c25" style="width: 100.0%; height: 100.0%;">     <div style="font-family:Arial,sans-serif;font-size:12px;width:220px">       <b style="font-size:14px;color:#B71C1C">POCO DA PANELA</b><br>       <b>Total:</b> 32 ocorrências<br>       <b>Idade média:</b> 29.2 anos<br>       <b>Gênero predominante:</b> HOMEM CIS<br>       <b>% período noturno:</b> 62%<br>       <hr style="margin:4px 0">       <b>Top tipos:</b><br>  DISPARO: 13<br>  HOMICIDIO/TENTATIVA: 7<br>  TIRO: 5     </div>     </div>`)[0];
+                popup_5a21cecd052255d4af2836e564801e6b.setContent(html_391a6e3cf88f7e422bad5279636e0c25);
+            
+        
+
+        circle_marker_d45375b5e79b86c74ac86d3f789aafb6.bindPopup(popup_5a21cecd052255d4af2836e564801e6b)
+        ;
+
+        
+    
+    
+            circle_marker_d45375b5e79b86c74ac86d3f789aafb6.bindTooltip(
+                `<div>
+                     POCO DA PANELA: 32.0 ocorrências
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_5023dab691ce6f58c53a07864a0776d6 = L.circleMarker(
+                [-8.039409294117647, -34.865207088235294],
+                {"bubblingMouseEvents": true, "color": "#90CAF9", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#90CAF9", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(feature_group_7a7a39f0b8351971506417f7aebbb7de);
+        
+    
+        var popup_4574f1dd19b4a38fb8a7d04739b813e6 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_67df2bf8212faf196583d5879bd72432 = $(`<div id="html_67df2bf8212faf196583d5879bd72432" style="width: 100.0%; height: 100.0%;">     <div style="font-family:Arial,sans-serif;font-size:12px;width:220px">       <b style="font-size:14px;color:#B71C1C">ROSARINHO</b><br>       <b>Total:</b> 34 ocorrências<br>       <b>Idade média:</b> 33.0 anos<br>       <b>Gênero predominante:</b> HOMEM CIS<br>       <b>% período noturno:</b> 35%<br>       <hr style="margin:4px 0">       <b>Top tipos:</b><br>  HOMICIDIO/TENTATIVA: 9<br>  DISPARO: 9<br>  TIRO: 7     </div>     </div>`)[0];
+                popup_4574f1dd19b4a38fb8a7d04739b813e6.setContent(html_67df2bf8212faf196583d5879bd72432);
+            
+        
+
+        circle_marker_5023dab691ce6f58c53a07864a0776d6.bindPopup(popup_4574f1dd19b4a38fb8a7d04739b813e6)
+        ;
+
+        
+    
+    
+            circle_marker_5023dab691ce6f58c53a07864a0776d6.bindTooltip(
+                `<div>
+                     ROSARINHO: 34.0 ocorrências
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_199e97249ceb5f39f4032d64e412008f = L.circleMarker(
+                [-8.039807247422681, -34.87795126804124],
+                {"bubblingMouseEvents": true, "color": "#FF7043", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF7043", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12.125, "stroke": true, "weight": 3}
+            ).addTo(feature_group_7a7a39f0b8351971506417f7aebbb7de);
+        
+    
+        var popup_9ba8db8360ed40c4784e7f297da211af = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_da918715980527017dc72eaebe9c3220 = $(`<div id="html_da918715980527017dc72eaebe9c3220" style="width: 100.0%; height: 100.0%;">     <div style="font-family:Arial,sans-serif;font-size:12px;width:220px">       <b style="font-size:14px;color:#B71C1C">SAN MARTIN</b><br>       <b>Total:</b> 97 ocorrências<br>       <b>Idade média:</b> 32.2 anos<br>       <b>Gênero predominante:</b> HOMEM CIS<br>       <b>% período noturno:</b> 41%<br>       <hr style="margin:4px 0">       <b>Top tipos:</b><br>  DISPARO: 29<br>  HOMICIDIO/TENTATIVA: 27<br>  TIRO: 15     </div>     <svg width="220" height="75" xmlns="http://www.w3.org/2000/svg"><text x="110" y="10" text-anchor="middle" font-size="9" fill="#333">SAN MARTIN — perfil por hora</text><rect x="0.0" y="52.5" width="8.2" height="7.5" fill="#90CAF9" rx="1"/><rect x="9.2" y="48.8" width="8.2" height="11.2" fill="#90CAF9" rx="1"/><rect x="18.3" y="45.0" width="8.2" height="15.0" fill="#90CAF9" rx="1"/><rect x="27.5" y="33.8" width="8.2" height="26.2" fill="#FFA726" rx="1"/><rect x="36.7" y="56.2" width="8.2" height="3.8" fill="#90CAF9" rx="1"/><rect x="45.8" y="52.5" width="8.2" height="7.5" fill="#90CAF9" rx="1"/><rect x="55.0" y="56.2" width="8.2" height="3.8" fill="#90CAF9" rx="1"/><rect x="64.2" y="60.0" width="8.2" height="0.0" fill="#90CAF9" rx="1"/><rect x="73.3" y="56.2" width="8.2" height="3.8" fill="#90CAF9" rx="1"/><rect x="82.5" y="56.2" width="8.2" height="3.8" fill="#90CAF9" rx="1"/><rect x="91.7" y="52.5" width="8.2" height="7.5" fill="#90CAF9" rx="1"/><rect x="100.8" y="60.0" width="8.2" height="0.0" fill="#90CAF9" rx="1"/><rect x="110.0" y="52.5" width="8.2" height="7.5" fill="#90CAF9" rx="1"/><rect x="119.2" y="37.5" width="8.2" height="22.5" fill="#90CAF9" rx="1"/><rect x="128.3" y="45.0" width="8.2" height="15.0" fill="#90CAF9" rx="1"/><rect x="137.5" y="22.5" width="8.2" height="37.5" fill="#FFA726" rx="1"/><rect x="146.7" y="37.5" width="8.2" height="22.5" fill="#90CAF9" rx="1"/><rect x="155.8" y="41.2" width="8.2" height="18.8" fill="#90CAF9" rx="1"/><rect x="165.0" y="56.2" width="8.2" height="3.8" fill="#90CAF9" rx="1"/><rect x="174.2" y="26.2" width="8.2" height="33.8" fill="#FFA726" rx="1"/><rect x="183.3" y="48.8" width="8.2" height="11.2" fill="#90CAF9" rx="1"/><rect x="192.5" y="0.0" width="8.2" height="60.0" fill="#B71C1C" rx="1"/><rect x="201.7" y="37.5" width="8.2" height="22.5" fill="#90CAF9" rx="1"/><rect x="210.8" y="41.2" width="8.2" height="18.8" fill="#90CAF9" rx="1"/><text x="4.6" y="72" text-anchor="middle" font-size="7" fill="#666">0h</text><text x="59.6" y="72" text-anchor="middle" font-size="7" fill="#666">6h</text><text x="114.6" y="72" text-anchor="middle" font-size="7" fill="#666">12h</text><text x="169.6" y="72" text-anchor="middle" font-size="7" fill="#666">18h</text><text x="215.4" y="72" text-anchor="middle" font-size="7" fill="#666">23h</text></svg></div>`)[0];
+                popup_9ba8db8360ed40c4784e7f297da211af.setContent(html_da918715980527017dc72eaebe9c3220);
+            
+        
+
+        circle_marker_199e97249ceb5f39f4032d64e412008f.bindPopup(popup_9ba8db8360ed40c4784e7f297da211af)
+        ;
+
+        
+    
+    
+            circle_marker_199e97249ceb5f39f4032d64e412008f.bindTooltip(
+                `<div>
+                     SAN MARTIN: 97.0 ocorrências
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_1d816062a40dee57a5cca68b5b7607d7 = L.circleMarker(
+                [-8.057307214285714, -34.87033388571429],
+                {"bubblingMouseEvents": true, "color": "#FFA726", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFA726", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.75, "stroke": true, "weight": 3}
+            ).addTo(feature_group_7a7a39f0b8351971506417f7aebbb7de);
+        
+    
+        var popup_2277b78d5509894b6cbc3a65fe44958e = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_a9084dac5d35644cde123d5549802d47 = $(`<div id="html_a9084dac5d35644cde123d5549802d47" style="width: 100.0%; height: 100.0%;">     <div style="font-family:Arial,sans-serif;font-size:12px;width:220px">       <b style="font-size:14px;color:#B71C1C">SANTO AMARO</b><br>       <b>Total:</b> 70 ocorrências<br>       <b>Idade média:</b> 27.9 anos<br>       <b>Gênero predominante:</b> HOMEM CIS<br>       <b>% período noturno:</b> 59%<br>       <hr style="margin:4px 0">       <b>Top tipos:</b><br>  DISPARO: 24<br>  HOMICIDIO/TENTATIVA: 21<br>  TIRO: 12     </div>     </div>`)[0];
+                popup_2277b78d5509894b6cbc3a65fe44958e.setContent(html_a9084dac5d35644cde123d5549802d47);
+            
+        
+
+        circle_marker_1d816062a40dee57a5cca68b5b7607d7.bindPopup(popup_2277b78d5509894b6cbc3a65fe44958e)
+        ;
+
+        
+    
+    
+            circle_marker_1d816062a40dee57a5cca68b5b7607d7.bindTooltip(
+                `<div>
+                     SANTO AMARO: 70.0 ocorrências
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_872bf553b616369efeb08508d7a08220 = L.circleMarker(
+                [-8.038071351351352, -34.86509597297297],
+                {"bubblingMouseEvents": true, "color": "#90CAF9", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#90CAF9", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(feature_group_7a7a39f0b8351971506417f7aebbb7de);
+        
+    
+        var popup_0c11f54241ac11678531a31c505643ca = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_520123b83ae47e3761689ff063898465 = $(`<div id="html_520123b83ae47e3761689ff063898465" style="width: 100.0%; height: 100.0%;">     <div style="font-family:Arial,sans-serif;font-size:12px;width:220px">       <b style="font-size:14px;color:#B71C1C">TOTOS</b><br>       <b>Total:</b> 37 ocorrências<br>       <b>Idade média:</b> 30.1 anos<br>       <b>Gênero predominante:</b> HOMEM CIS<br>       <b>% período noturno:</b> 54%<br>       <hr style="margin:4px 0">       <b>Top tipos:</b><br>  DISPARO: 10<br>  TIRO: 10<br>  HOMICIDIO/TENTATIVA: 9     </div>     </div>`)[0];
+                popup_0c11f54241ac11678531a31c505643ca.setContent(html_520123b83ae47e3761689ff063898465);
+            
+        
+
+        circle_marker_872bf553b616369efeb08508d7a08220.bindPopup(popup_0c11f54241ac11678531a31c505643ca)
+        ;
+
+        
+    
+    
+            circle_marker_872bf553b616369efeb08508d7a08220.bindTooltip(
+                `<div>
+                     TOTOS: 37.0 ocorrências
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_f2361b4ef1f488a3afa1ab99847712cd = L.circleMarker(
+                [-8.035178239263804, -34.91521434355828],
+                {"bubblingMouseEvents": true, "color": "#B71C1C", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#B71C1C", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20.375, "stroke": true, "weight": 3}
+            ).addTo(feature_group_7a7a39f0b8351971506417f7aebbb7de);
+        
+    
+        var popup_edced4332117ec895e3aa9aff992ea04 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_e33e55969c51a246337ae7348a11c811 = $(`<div id="html_e33e55969c51a246337ae7348a11c811" style="width: 100.0%; height: 100.0%;">     <div style="font-family:Arial,sans-serif;font-size:12px;width:220px">       <b style="font-size:14px;color:#B71C1C">VARZEA</b><br>       <b>Total:</b> 163 ocorrências<br>       <b>Idade média:</b> 29.4 anos<br>       <b>Gênero predominante:</b> HOMEM CIS<br>       <b>% período noturno:</b> 47%<br>       <hr style="margin:4px 0">       <b>Top tipos:</b><br>  HOMICIDIO/TENTATIVA: 60<br>  DISPARO: 39<br>  TIRO: 21     </div>     <svg width="220" height="75" xmlns="http://www.w3.org/2000/svg"><text x="110" y="10" text-anchor="middle" font-size="9" fill="#333">VARZEA — perfil por hora</text><rect x="0.0" y="45.6" width="8.2" height="14.4" fill="#90CAF9" rx="1"/><rect x="9.2" y="38.4" width="8.2" height="21.6" fill="#90CAF9" rx="1"/><rect x="18.3" y="43.2" width="8.2" height="16.8" fill="#90CAF9" rx="1"/><rect x="27.5" y="45.6" width="8.2" height="14.4" fill="#90CAF9" rx="1"/><rect x="36.7" y="43.2" width="8.2" height="16.8" fill="#90CAF9" rx="1"/><rect x="45.8" y="52.8" width="8.2" height="7.2" fill="#90CAF9" rx="1"/><rect x="55.0" y="52.8" width="8.2" height="7.2" fill="#90CAF9" rx="1"/><rect x="64.2" y="57.6" width="8.2" height="2.4" fill="#90CAF9" rx="1"/><rect x="73.3" y="55.2" width="8.2" height="4.8" fill="#90CAF9" rx="1"/><rect x="82.5" y="52.8" width="8.2" height="7.2" fill="#90CAF9" rx="1"/><rect x="91.7" y="45.6" width="8.2" height="14.4" fill="#90CAF9" rx="1"/><rect x="100.8" y="50.4" width="8.2" height="9.6" fill="#90CAF9" rx="1"/><rect x="110.0" y="52.8" width="8.2" height="7.2" fill="#90CAF9" rx="1"/><rect x="119.2" y="57.6" width="8.2" height="2.4" fill="#90CAF9" rx="1"/><rect x="128.3" y="45.6" width="8.2" height="14.4" fill="#90CAF9" rx="1"/><rect x="137.5" y="45.6" width="8.2" height="14.4" fill="#90CAF9" rx="1"/><rect x="146.7" y="50.4" width="8.2" height="9.6" fill="#90CAF9" rx="1"/><rect x="155.8" y="38.4" width="8.2" height="21.6" fill="#90CAF9" rx="1"/><rect x="165.0" y="38.4" width="8.2" height="21.6" fill="#90CAF9" rx="1"/><rect x="174.2" y="31.2" width="8.2" height="28.8" fill="#FFA726" rx="1"/><rect x="183.3" y="33.6" width="8.2" height="26.4" fill="#FFA726" rx="1"/><rect x="192.5" y="0.0" width="8.2" height="60.0" fill="#B71C1C" rx="1"/><rect x="201.7" y="40.8" width="8.2" height="19.2" fill="#90CAF9" rx="1"/><rect x="210.8" y="31.2" width="8.2" height="28.8" fill="#FFA726" rx="1"/><text x="4.6" y="72" text-anchor="middle" font-size="7" fill="#666">0h</text><text x="59.6" y="72" text-anchor="middle" font-size="7" fill="#666">6h</text><text x="114.6" y="72" text-anchor="middle" font-size="7" fill="#666">12h</text><text x="169.6" y="72" text-anchor="middle" font-size="7" fill="#666">18h</text><text x="215.4" y="72" text-anchor="middle" font-size="7" fill="#666">23h</text></svg></div>`)[0];
+                popup_edced4332117ec895e3aa9aff992ea04.setContent(html_e33e55969c51a246337ae7348a11c811);
+            
+        
+
+        circle_marker_f2361b4ef1f488a3afa1ab99847712cd.bindPopup(popup_edced4332117ec895e3aa9aff992ea04)
+        ;
+
+        
+    
+    
+            circle_marker_f2361b4ef1f488a3afa1ab99847712cd.bindTooltip(
+                `<div>
+                     VARZEA: 163.0 ocorrências
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_4dc9993225acc8d32da0521c47f76692 = L.circleMarker(
+                [-8.054988375, -34.880266671875],
+                {"bubblingMouseEvents": true, "color": "#FFA726", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFA726", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.0, "stroke": true, "weight": 3}
+            ).addTo(feature_group_7a7a39f0b8351971506417f7aebbb7de);
+        
+    
+        var popup_46074129a9413cf6b1c300c5d2ed44ef = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_2ce23d15d5ce529355735d0032fe2f0f = $(`<div id="html_2ce23d15d5ce529355735d0032fe2f0f" style="width: 100.0%; height: 100.0%;">     <div style="font-family:Arial,sans-serif;font-size:12px;width:220px">       <b style="font-size:14px;color:#B71C1C">VASCO DA GAMA</b><br>       <b>Total:</b> 64 ocorrências<br>       <b>Idade média:</b> 30.8 anos<br>       <b>Gênero predominante:</b> HOMEM CIS<br>       <b>% período noturno:</b> 50%<br>       <hr style="margin:4px 0">       <b>Top tipos:</b><br>  HOMICIDIO/TENTATIVA: 31<br>  DISPARO: 11<br>  TIRO: 11     </div>     </div>`)[0];
+                popup_46074129a9413cf6b1c300c5d2ed44ef.setContent(html_2ce23d15d5ce529355735d0032fe2f0f);
+            
+        
+
+        circle_marker_4dc9993225acc8d32da0521c47f76692.bindPopup(popup_46074129a9413cf6b1c300c5d2ed44ef)
+        ;
+
+        
+    
+    
+            circle_marker_4dc9993225acc8d32da0521c47f76692.bindTooltip(
+                `<div>
+                     VASCO DA GAMA: 64.0 ocorrências
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            feature_group_7a7a39f0b8351971506417f7aebbb7de.addTo(map_881d280af4518df413e294707183b92b);
+        
+    
+            var feature_group_145fff62da3b6be99e39b1e6ab0a981e = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var heat_map_58f5941a407431d059dd878197fd49da = L.heatLayer(
+                [[-8.055415, -34.878057], [-8.065702, -34.905702], [-8.079698, -34.893408], [-8.01639, -34.866397], [-8.01574, -34.875175], [-8.028038, -34.919057], [-8.039237, -34.910603], [-8.031797, -34.864274], [-8.039667, -34.881453], [-8.021802, -34.885875], [-8.014443, -34.88504], [-8.050532, -34.874663], [-8.030879, -34.923985], [-8.067785, -34.909486], [-8.038903, -34.869436], [-8.036382, -34.911829], [-8.015289, -34.869028], [-8.022031, -34.883165], [-8.050206, -34.873518], [-8.014006, -34.862073], [-8.065557, -34.908319], [-8.079562, -34.887931], [-8.016989, -34.883915], [-8.023916, -34.915386], [-8.005306, -34.877859], [-8.014739, -34.865897], [-8.025963, -34.885659], [-8.053566, -34.871555], [-8.016505, -34.862254], [-8.054589, -34.86946], [-8.062094, -34.907106], [-8.071176, -34.914391], [-8.042217, -34.869985], [-8.057246, -34.872262], [-8.034407, -34.860484], [-8.032341, -34.864476], [-8.082223, -34.897756], [-8.052819, -34.86361], [-8.027095, -34.893104], [-8.031572, -34.912744], [-8.055728, -34.866792], [-8.063239, -34.898429], [-8.016699, -34.864701], [-8.039652, -34.914794], [-8.013579, -34.867758], [-8.04735, -34.872966], [-8.018693, -34.864318], [-8.039822, -34.914446], [-8.055655, -34.876711], [-8.068434, -34.909109], [-8.056961, -34.87204], [-8.064121, -34.907143], [-8.040579, -34.871574], [-8.040924, -34.865639], [-8.037462, -34.91211], [-8.007534, -34.86431], [-8.052261, -34.877669], [-8.020231, -34.883977], [-8.042518, -34.871961], [-8.015794, -34.856839], [-8.037571, -34.918213], [-8.05367, -34.868858], [-8.028218, -34.89554], [-8.01634, -34.862431], [-8.046737, -34.86948], [-8.084652, -34.891539], [-8.031429, -34.891927], [-8.031751, -34.911839], [-8.042813, -34.876455], [-8.053455, -34.868442], [-8.011593, -34.862138], [-8.053946, -34.868723], [-8.00571, -34.856456], [-8.046056, -34.876602], [-8.086838, -34.893416], [-8.027807, -34.896233], [-8.037961, -34.880191], [-8.081863, -34.893955], [-8.048098, -34.881075], [-8.006985, -34.852443], [-8.015344, -34.863485], [-8.008601, -34.856004], [-8.02196, -34.879704], [-8.085783, -34.889246], [-8.016903, -34.889558], [-8.031199, -34.917123], [-8.035676, -34.870781], [-8.051724, -34.871073], [-8.085743, -34.887103], [-8.05632, -34.879608], [-8.032308, -34.889511], [-8.037945, -34.913614], [-8.059801, -34.872791], [-8.014659, -34.863014], [-8.058713, -34.873601], [-8.065455, -34.903235], [-8.029868, -34.893624], [-8.066768, -34.902451], [-8.067079, -34.902301], [-8.025561, -34.891111], [-8.059681, -34.870758], [-8.053063, -34.870648], [-8.059775, -34.871359], [-8.082653, -34.888704], [-8.032559, -34.911084], [-8.062954, -34.905931], [-8.04039, -34.877709], [-8.042455, -34.871723], [-8.031643, -34.889526], [-8.068128, -34.898115], [-8.030692, -34.892773], [-8.062075, -34.905441], [-8.053964, -34.869761], [-8.037467, -34.914269], [-8.044521, -34.871413], [-8.032344, -34.897222], [-8.03564, -34.914067], [-8.079427, -34.89248], [-8.031008, -34.893056], [-8.034032, -34.917482], [-8.053402, -34.870326], [-8.05293, -34.881204], [-8.064962, -34.904707], [-8.064926, -34.903506], [-8.067122, -34.89354], [-8.067383, -34.90945], [-8.017425, -34.867519], [-8.071372, -34.906577], [-8.069549, -34.898975], [-8.037149, -34.879731], [-8.053524, -34.883961], [-8.061462, -34.906408], [-8.050938, -34.880344], [-8.062783, -34.874798], [-8.037859, -34.86635], [-8.041203, -34.865427], [-8.033457, -34.859865], [-8.042602, -34.861167], [-8.012245, -34.865347], [-8.034462, -34.867797], [-8.009734, -34.865747], [-8.033064, -34.910894], [-8.062942, -34.901825], [-8.08555, -34.898118], [-8.017847, -34.880493], [-8.038114, -34.87414], [-8.065167, -34.903848], [-8.088202, -34.892267], [-8.007991, -34.8689], [-8.071542, -34.913178], [-8.062135, -34.907957], [-8.071591, -34.902379], [-8.085106, -34.893661], [-8.059106, -34.904894], [-8.064358, -34.905337], [-8.063157, -34.902727], [-8.071727, -34.910825], [-8.032546, -34.888899], [-8.020747, -34.88327], [-8.035763, -34.868641], [-8.072867, -34.914819], [-8.030269, -34.897267], [-8.018245, -34.859939], [-8.028024, -34.88856], [-8.072584, -34.895431], [-8.068112, -34.905571], [-8.032148, -34.890221], [-8.032196, -34.891311], [-8.036461, -34.916777], [-8.081854, -34.894493], [-8.058151, -34.873717], [-8.01673, -34.862734], [-8.037933, -34.914702], [-8.025008, -34.88337], [-8.018288, -34.88729], [-8.059883, -34.879856], [-8.057713, -34.878084], [-8.053198, -34.874633], [-8.034858, -34.917581], [-8.066981, -34.911731], [-8.038389, -34.913411], [-8.050415, -34.872391], [-8.040609, -34.876887], [-8.06974, -34.910467], [-8.034237, -34.913987], [-8.011463, -34.871298], [-8.059263, -34.872131], [-8.025387, -34.893978], [-8.041224, -34.884114], [-8.058612, -34.872055], [-8.034971, -34.877019], [-8.025512, -34.899633], [-8.012687, -34.869436], [-8.030985, -34.861246], [-8.075188, -34.891454], [-8.021378, -34.88755], [-8.047568, -34.871785], [-8.068563, -34.908999], [-8.04153, -34.86581], [-8.036333, -34.913868], [-8.055766, -34.868391], [-8.03676, -34.85937], [-8.085734, -34.897336], [-8.026037, -34.893167], [-8.041376, -34.860663], [-8.027672, -34.890823], [-8.039328, -34.880371], [-8.019354, -34.915964], [-8.071534, -34.902969], [-8.039833, -34.874717], [-8.023411, -34.893474], [-8.056036, -34.875965], [-8.05778, -34.87687], [-8.036007, -34.909993], [-8.009509, -34.855737], [-8.090091, -34.892163], [-8.012911, -34.859453], [-8.020807, -34.88832], [-8.024822, -34.919958], [-8.064406, -34.905433], [-8.071641, -34.910098], [-8.040139, -34.867681], [-8.053488, -34.877953], [-8.011262, -34.87122], [-8.011114, -34.874223], [-8.061332, -34.867743], [-8.061185, -34.902835], [-8.071574, -34.908532], [-8.012861, -34.865721], [-8.052867, -34.878667], [-8.024522, -34.896243], [-8.056221, -34.873929], [-8.008753, -34.852228], [-8.026568, -34.916853], [-8.039225, -34.86667], [-8.053841, -34.869736], [-8.034911, -34.864367], [-8.011635, -34.868803], [-8.06169, -34.904657], [-8.029091, -34.893171], [-8.063131, -34.874045], [-8.034487, -34.915552], [-8.013957, -34.866619], [-8.024412, -34.922935], [-8.063108, -34.866913], [-8.019232, -34.882052], [-8.031957, -34.920523], [-8.021874, -34.884922], [-8.084177, -34.89144], [-8.033835, -34.86422], [-8.019055, -34.867928], [-8.034848, -34.852103], [-8.009445, -34.872575], [-8.033727, -34.859634], [-8.045288, -34.868552], [-8.035105, -34.856688], [-8.019563, -34.917877], [-8.013103, -34.862082], [-8.059711, -34.882181], [-8.065223, -34.903138], [-8.086006, -34.890859], [-8.013321, -34.861758], [-8.030622, -34.86021], [-8.068711, -34.899377], [-8.03883, -34.918243], [-8.045119, -34.869955], [-8.057911, -34.867185], [-8.039712, -34.866387], [-8.065928, -34.904334], [-8.046233, -34.877684], [-8.059319, -34.868659], [-8.001904, -34.859457], [-8.032331, -34.914753], [-8.066552, -34.900772], [-8.059089, -34.874337], [-8.077261, -34.893569], [-8.045845, -34.876033], [-8.073012, -34.912303], [-8.009297, -34.865348], [-8.032047, -34.915642], [-8.079976, -34.895368], [-8.042501, -34.868523], [-8.002634, -34.871913], [-8.029869, -34.894666], [-8.061433, -34.900738], [-8.067497, -34.903586], [-8.056101, -34.872391], [-8.035357, -34.872612], [-8.056163, -34.879142], [-8.023024, -34.913969], [-8.055395, -34.875138], [-8.053099, -34.865616], [-8.009329, -34.870049], [-8.074419, -34.893593], [-8.011868, -34.862954], [-8.038248, -34.866078], [-8.031674, -34.912539], [-8.0118, -34.861492], [-8.080054, -34.892501], [-8.05438, -34.875451], [-8.04418, -34.869914], [-8.034427, -34.914861], [-8.012761, -34.863064], [-8.032923, -34.859343], [-8.077268, -34.892286], [-8.068176, -34.90944], [-8.069418, -34.906779], [-8.004601, -34.8571], [-8.01957, -34.866677], [-8.053303, -34.870197], [-8.014357, -34.889344], [-8.01368, -34.866506], [-8.012875, -34.864269], [-8.068841, -34.902383], [-8.035298, -34.90946], [-8.039577, -34.917076], [-8.03927, -34.878724], [-8.046755, -34.865669], [-8.066648, -34.898972], [-8.080291, -34.890657], [-8.039013, -34.86941], [-8.035269, -34.91068], [-8.059597, -34.90512], [-8.049616, -34.877043], [-8.039958, -34.869339], [-8.036357, -34.922272], [-8.040719, -34.867643], [-8.057901, -34.880143], [-8.085475, -34.88749], [-8.040663, -34.864919], [-8.038125, -34.860742], [-8.061005, -34.873843], [-8.003077, -34.856714], [-8.027802, -34.857226], [-8.071941, -34.907905], [-8.032314, -34.913094], [-8.071606, -34.906048], [-8.033774, -34.880068], [-8.039406, -34.879954], [-8.045961, -34.870728], [-8.029721, -34.893073], [-8.032817, -34.866691], [-8.04464, -34.870159], [-8.082772, -34.897006], [-8.051058, -34.87245], [-8.068677, -34.909393], [-8.016859, -34.879948], [-8.034764, -34.868116], [-8.029349, -34.858043], [-8.02057, -34.91586], [-8.063813, -34.903518], [-8.051651, -34.877015], [-8.034482, -34.863369], [-8.079685, -34.900546], [-8.025219, -34.886087], [-8.073884, -34.906518], [-8.01396, -34.865141], [-8.06477, -34.908849], [-8.066481, -34.90967], [-8.010498, -34.862449], [-8.083048, -34.892965], [-8.043854, -34.87071], [-8.041284, -34.868777], [-8.020215, -34.885112], [-8.031844, -34.857802], [-8.057764, -34.878995], [-8.023961, -34.917006], [-8.051735, -34.870419], [-8.04812, -34.870162], [-8.059871, -34.864258], [-8.009348, -34.86739], [-8.034549, -34.860905], [-8.082173, -34.891397], [-8.038683, -34.864439], [-8.085429, -34.8871], [-8.027092, -34.895263], [-8.019014, -34.884036], [-8.023159, -34.891639], [-8.037108, -34.874432], [-8.043208, -34.869896], [-8.015873, -34.88545], [-8.050519, -34.874953], [-8.08632, -34.887216], [-8.060974, -34.87946], [-8.085969, -34.887074], [-8.060064, -34.866243], [-8.028974, -34.900498], [-8.074169, -34.904936], [-8.027681, -34.910847], [-8.038216, -34.87544], [-8.014156, -34.864687], [-8.060262, -34.873842], [-8.058295, -34.872966], [-8.02446, -34.915824], [-8.036712, -34.862969], [-8.060947, -34.873674], [-8.017905, -34.864684], [-8.036804, -34.914041], [-8.068679, -34.910059], [-8.041328, -34.863908], [-8.071288, -34.909633], [-8.064853, -34.904878], [-8.066989, -34.909208], [-8.058732, -34.882079], [-8.042315, -34.872885], [-8.03702, -34.861163], [-8.051565, -34.876563], [-8.068099, -34.898759], [-8.005389, -34.854869], [-8.025108, -34.886368], [-8.032109, -34.893265], [-8.052411, -34.870083], [-8.041661, -34.863293], [-8.029137, -34.893611], [-8.056044, -34.872948], [-8.039898, -34.88031], [-8.032668, -34.892007], [-8.033981, -34.891878], [-8.068629, -34.899982], [-8.030115, -34.893167], [-8.081772, -34.890384], [-8.009492, -34.874241], [-8.022712, -34.887207], [-8.046726, -34.873173], [-8.070949, -34.906361], [-8.008042, -34.86382], [-8.025927, -34.919599], [-8.055876, -34.87013], [-8.043994, -34.883509], [-8.01831, -34.871459], [-8.050521, -34.873018], [-8.052755, -34.871297], [-8.020871, -34.884198], [-8.042004, -34.875024], [-8.030267, -34.89139], [-8.019915, -34.885027], [-8.053576, -34.880075], [-8.053829, -34.871327], [-8.018936, -34.868195], [-8.083829, -34.892561], [-8.040411, -34.868211], [-8.042807, -34.875926], [-8.070432, -34.913629], [-8.010408, -34.861344], [-8.037528, -34.867554], [-8.01684, -34.865907], [-8.031489, -34.859518], [-8.038689, -34.874428], [-8.019455, -34.872662], [-8.044101, -34.878674], [-8.075406, -34.908376], [-8.03673, -34.922773], [-8.080825, -34.896437], [-8.015046, -34.863262], [-8.052919, -34.87141], [-8.055082, -34.8828], [-8.037654, -34.915519], [-8.014116, -34.874841], [-8.032628, -34.862007], [-8.016817, -34.859522], [-8.054464, -34.864528], [-8.079774, -34.891102], [-8.000315, -34.854904], [-8.03362, -34.864033], [-8.01959, -34.886096], [-8.014041, -34.872915], [-8.041971, -34.881141], [-8.011443, -34.862843], [-8.07227, -34.904265], [-8.032968, -34.860752], [-8.068331, -34.898632], [-8.033931, -34.857216], [-8.004194, -34.850415], [-8.080385, -34.888782], [-8.060518, -34.873134], [-8.058831, -34.90831], [-8.03583, -34.914078], [-8.002419, -34.856749], [-8.069152, -34.900746], [-8.063527, -34.902795], [-8.07848, -34.891457], [-8.080801, -34.893954], [-8.003241, -34.851285], [-8.014074, -34.859893], [-7.997195, -34.853303], [-8.02574, -34.891857], [-8.01298, -34.865415], [-8.053627, -34.873552], [-8.030234, -34.85499], [-8.008588, -34.853666], [-8.044829, -34.870402], [-8.084355, -34.890055], [-8.038741, -34.880662], [-8.035833, -34.866118], [-8.071199, -34.909326], [-8.062255, -34.878282], [-8.078212, -34.893656], [-8.059693, -34.872446], [-8.033982, -34.871815], [-8.036928, -34.876222], [-8.066654, -34.907455], [-8.010511, -34.87136], [-8.025134, -34.892735], [-8.028425, -34.920581], [-8.0876, -34.892248], [-8.02046, -34.918108], [-8.052438, -34.866337], [-8.058679, -34.875878], [-8.049734, -34.865346], [-8.036467, -34.865359], [-8.050305, -34.87103], [-8.043398, -34.872784], [-8.016598, -34.86851], [-8.038083, -34.862683], [-8.041371, -34.879807], [-8.012995, -34.869095], [-8.051319, -34.8803], [-8.022634, -34.887481], [-8.063898, -34.902259], [-8.033522, -34.865813], [-8.084242, -34.899273], [-8.007789, -34.870844], [-8.033452, -34.919688], [-8.025617, -34.896763], [-8.06207, -34.871601], [-8.036845, -34.856506], [-8.067431, -34.904398], [-8.038047, -34.914815], [-8.032921, -34.914471], [-8.022483, -34.884742], [-8.043764, -34.86069], [-8.072089, -34.908029], [-8.025828, -34.859938], [-8.058549, -34.865875], [-8.030398, -34.894448], [-8.027632, -34.888126], [-8.070757, -34.900875], [-8.002351, -34.855234], [-8.048421, -34.869104], [-8.021279, -34.881555], [-8.019315, -34.862242], [-8.02938, -34.91176], [-8.051157, -34.879796], [-8.038546, -34.880539], [-8.04191, -34.873004], [-8.022865, -34.883729], [-8.038203, -34.914927], [-8.082239, -34.890643], [-8.043715, -34.872561], [-8.024438, -34.885231], [-8.027023, -34.892417], [-8.068985, -34.900886], [-8.041047, -34.87502], [-8.049049, -34.871354], [-8.059823, -34.866109], [-8.060998, -34.871514], [-8.03636, -34.865717], [-8.016175, -34.867767], [-8.038967, -34.861349], [-8.079005, -34.893295], [-8.020073, -34.887711], [-8.068537, -34.901437], [-8.037397, -34.86715], [-8.05624, -34.874425], [-8.019038, -34.864621], [-8.056001, -34.873033], [-8.034461, -34.913948], [-8.030096, -34.856671], [-8.035724, -34.912982], [-8.035398, -34.917924], [-8.070361, -34.906518], [-8.066606, -34.905272], [-8.052429, -34.868872], [-8.051461, -34.871779], [-8.053154, -34.882806], [-8.059608, -34.870576], [-8.029485, -34.86267], [-8.015058, -34.86591], [-8.074849, -34.913161], [-8.025149, -34.887868], [-8.070506, -34.89979], [-8.042782, -34.864285], [-8.003497, -34.854431], [-8.02811, -34.882966], [-8.040492, -34.913466], [-8.082412, -34.889141], [-8.054055, -34.86808], [-8.054774, -34.884806], [-8.06053, -34.866487], [-8.04163, -34.866346], [-8.076915, -34.893868], [-8.060227, -34.87696], [-8.038111, -34.869288], [-8.014219, -34.870249], [-8.01772, -34.884753], [-8.028928, -34.895256], [-8.023979, -34.898626], [-8.03548, -34.912986], [-8.037256, -34.915957], [-8.024772, -34.892936], [-8.058182, -34.872125], [-8.033409, -34.897752], [-8.036474, -34.869744], [-8.006449, -34.85456], [-8.067309, -34.910806], [-8.059455, -34.873157], [-8.055962, -34.871394], [-8.032675, -34.86195], [-8.023674, -34.923271], [-8.040296, -34.864943], [-8.0443, -34.869141], [-8.056837, -34.878915], [-8.041674, -34.8681], [-8.028386, -34.898646], [-8.014721, -34.86452], [-8.049203, -34.873599], [-8.018718, -34.886939], [-8.068581, -34.902243], [-8.084012, -34.887823], [-8.004134, -34.854219], [-8.022568, -34.91762], [-8.031087, -34.919987], [-8.05462, -34.873273], [-8.023317, -34.885645], [-8.025661, -34.889069], [-8.059687, -34.870628], [-8.052418, -34.872105], [-8.018703, -34.866777], [-8.03916, -34.880429], [-8.066422, -34.905043], [-8.064981, -34.906309], [-8.032265, -34.86111], [-8.077204, -34.890317], [-8.007909, -34.871001], [-8.041891, -34.870322], [-8.074713, -34.90338], [-8.027571, -34.887802], [-8.008086, -34.868497], [-8.066628, -34.907363], [-8.025504, -34.921416], [-8.035756, -34.871218], [-8.051778, -34.872758], [-8.010858, -34.866697], [-8.008689, -34.85351], [-8.015318, -34.857067], [-8.034239, -34.913597], [-8.052706, -34.870076], [-8.019193, -34.88603], [-8.006109, -34.853869], [-8.016622, -34.885154], [-8.031214, -34.917717], [-8.011787, -34.865877], [-8.033587, -34.866832], [-8.038165, -34.867143], [-8.026064, -34.891333], [-8.035592, -34.862454], [-8.028599, -34.858219], [-8.040032, -34.867416], [-8.036166, -34.911628], [-8.067319, -34.903779], [-8.074139, -34.91188], [-8.032141, -34.913461], [-8.036451, -34.866924], [-8.017599, -34.882737], [-8.079875, -34.890946], [-8.02808, -34.895646], [-8.007235, -34.857026], [-8.060377, -34.873924], [-8.06936, -34.909996], [-8.013022, -34.862187], [-8.040288, -34.867307], [-8.032512, -34.915581], [-8.031012, -34.918094], [-8.05782, -34.869168], [-8.073926, -34.919059], [-8.044598, -34.871283], [-8.071475, -34.907579], [-8.056571, -34.871484], [-8.049721, -34.868823], [-8.058077, -34.875307], [-8.059228, -34.874572], [-8.022467, -34.881637], [-8.015028, -34.865984], [-8.007525, -34.872601], [-8.082911, -34.896038], [-8.033429, -34.857377], [-8.034419, -34.912447], [-8.048829, -34.87531], [-8.026748, -34.927316], [-8.030732, -34.912221], [-8.024292, -34.892734], [-8.046853, -34.872948], [-8.041388, -34.872418], [-8.027998, -34.891196], [-8.011889, -34.856652], [-8.046524, -34.872443], [-8.030643, -34.91402], [-8.056133, -34.873416], [-8.015227, -34.862989], [-8.054661, -34.872546], [-8.034706, -34.862609], [-8.048568, -34.867072], [-8.030085, -34.860986], [-8.054632, -34.871488], [-8.038007, -34.912778], [-8.082686, -34.894983], [-8.058573, -34.862762], [-8.053058, -34.871789], [-8.033359, -34.918542], [-8.007854, -34.867845], [-8.039941, -34.862981], [-8.043062, -34.869721], [-8.010353, -34.868717], [-8.069506, -34.899847], [-8.039268, -34.87867], [-8.054803, -34.877485], [-8.02993, -34.920528], [-8.064937, -34.904308], [-8.071849, -34.901126], [-8.049155, -34.869327], [-8.05426, -34.878505], [-8.053258, -34.876045], [-8.041773, -34.865702], [-8.037038, -34.878228], [-8.009545, -34.872505], [-8.029823, -34.919446], [-8.03798, -34.86857], [-8.028541, -34.888881], [-8.0604, -34.909272], [-8.071288, -34.898234], [-8.041613, -34.863927], [-8.054431, -34.881986], [-8.054943, -34.881924], [-8.039587, -34.872573], [-8.04388, -34.880869], [-8.065548, -34.898933], [-8.058002, -34.873751], [-8.055353, -34.874356], [-8.057202, -34.87131], [-8.063701, -34.910741], [-8.036943, -34.912767], [-8.016948, -34.861036], [-8.083801, -34.8976], [-8.042054, -34.875628], [-8.062322, -34.908634], [-8.054957, -34.882862], [-8.025941, -34.892682], [-8.059071, -34.909693], [-8.069687, -34.902696], [-8.035567, -34.859235], [-8.015467, -34.889354], [-8.018757, -34.863909], [-8.043262, -34.875813], [-8.05669, -34.868787], [-8.085213, -34.889959], [-8.033336, -34.892041], [-8.040245, -34.876957], [-8.084027, -34.891898], [-8.073257, -34.907962], [-8.033001, -34.913612], [-8.045033, -34.866418], [-8.029393, -34.891614], [-8.082755, -34.893793], [-8.076783, -34.889063], [-8.022425, -34.887491], [-8.013745, -34.860795], [-8.024509, -34.881844], [-8.059152, -34.872249], [-8.00567, -34.86318], [-8.048396, -34.872337], [-8.026614, -34.85931], [-8.056002, -34.871735], [-8.029852, -34.894675], [-8.026681, -34.890663], [-8.004977, -34.870017], [-8.073275, -34.911161], [-8.062453, -34.905882], [-8.039554, -34.916071], [-8.063274, -34.903498], [-8.039979, -34.879981], [-8.056737, -34.871524], [-8.01146, -34.851709], [-8.060588, -34.87092], [-8.02482, -34.891149], [-8.046098, -34.864364], [-8.043108, -34.86757], [-8.038774, -34.881088], [-8.086567, -34.888662], [-8.030399, -34.916607], [-8.07335, -34.906293], [-8.066645, -34.90452], [-8.054648, -34.865655], [-8.008978, -34.85624], [-8.060891, -34.872871], [-8.040146, -34.864902], [-8.035691, -34.917773], [-8.051894, -34.885539], [-8.01949, -34.86695], [-8.044349, -34.880766], [-8.081378, -34.891792], [-8.05747, -34.87464], [-8.06498, -34.895979], [-8.067511, -34.897566], [-8.037544, -34.873386], [-8.007753, -34.851947], [-8.026346, -34.891978], [-8.061979, -34.869858], [-8.035688, -34.91513], [-8.056457, -34.868284], [-8.011627, -34.866002], [-8.008059, -34.855071], [-8.042324, -34.871109], [-8.029522, -34.86131], [-8.047751, -34.866856], [-8.037931, -34.879509], [-8.054117, -34.880703], [-8.044072, -34.870749], [-8.040202, -34.867147], [-8.010538, -34.86674], [-8.023501, -34.918584], [-8.067772, -34.908553], [-8.025393, -34.890338], [-8.024886, -34.91795], [-8.078781, -34.884908], [-8.019143, -34.864089], [-8.015693, -34.86064], [-8.047921, -34.876818], [-8.052022, -34.8723], [-8.002421, -34.856161], [-8.024924, -34.925759], [-8.012069, -34.871479], [-8.02877, -34.91756], [-8.025839, -34.917629], [-8.013288, -34.862095], [-8.041837, -34.868255], [-8.026153, -34.911266], [-8.061967, -34.868554], [-8.043353, -34.872765], [-8.039016, -34.877742], [-8.058689, -34.875554], [-8.049044, -34.868898], [-8.067235, -34.898552], [-8.063179, -34.89883], [-8.030579, -34.862779], [-8.027756, -34.921252], [-8.022073, -34.917245], [-8.037835, -34.870129], [-8.070651, -34.900925], [-8.068701, -34.904133], [-8.036936, -34.871735], [-8.05064, -34.866387], [-8.017605, -34.863396], [-8.06999, -34.909017], [-8.031042, -34.892743], [-8.037234, -34.870686], [-8.017987, -34.863047], [-8.050704, -34.874885], [-8.005899, -34.855151], [-8.048336, -34.867607], [-8.044158, -34.866724], [-8.080833, -34.892159], [-8.036711, -34.879877], [-8.053609, -34.8734], [-8.016288, -34.886372], [-8.069826, -34.897455], [-8.08382, -34.891366], [-8.016476, -34.87063], [-8.029906, -34.896569], [-8.082554, -34.893814], [-8.025309, -34.889175], [-8.031413, -34.893604], [-8.063204, -34.902995], [-8.052754, -34.869628], [-8.012886, -34.862633], [-8.015769, -34.883771], [-8.01079, -34.862906], [-8.016438, -34.86411], [-8.024408, -34.919066], [-8.061785, -34.904428], [-8.008098, -34.853806], [-8.015654, -34.867543], [-8.056269, -34.873354], [-8.039217, -34.914953], [-8.055723, -34.866442], [-8.041908, -34.873974], [-8.038276, -34.912329], [-8.02634, -34.896527], [-8.038208, -34.867845], [-8.042101, -34.862455], [-8.038343, -34.876123], [-8.068254, -34.909219], [-8.031026, -34.898888], [-8.069694, -34.904714], [-8.002963, -34.855906], [-8.029804, -34.858995], [-8.008592, -34.874607], [-8.003163, -34.85805], [-8.020118, -34.885403], [-8.065706, -34.906755], [-8.026134, -34.889013], [-8.001727, -34.848963], [-8.052252, -34.867865], [-8.069928, -34.901054], [-8.034455, -34.855403], [-8.039198, -34.913897], [-8.030123, -34.857344], [-8.037629, -34.862138], [-8.073177, -34.895555], [-8.041989, -34.864966], [-8.084227, -34.893456], [-8.009945, -34.863311], [-8.076039, -34.893593], [-8.030973, -34.855338], [-8.013755, -34.86361], [-8.063326, -34.912589], [-8.027276, -34.896453], [-8.065613, -34.899734], [-8.066397, -34.905453], [-8.021355, -34.884415], [-8.073392, -34.908132], [-8.040413, -34.862314], [-8.014241, -34.862539], [-8.033636, -34.916549], [-8.020618, -34.88724], [-8.086646, -34.893473], [-8.058769, -34.873724], [-8.056562, -34.870376], [-8.08561, -34.895126], [-8.054056, -34.87331], [-8.016368, -34.864456], [-8.071672, -34.911239], [-8.040094, -34.880545], [-8.063358, -34.871079], [-8.064448, -34.896921], [-8.068012, -34.905286], [-8.058242, -34.872499], [-8.054649, -34.87135], [-8.064783, -34.900964], [-8.037558, -34.863554], [-8.053819, -34.885783], [-8.037465, -34.878147], [-8.015157, -34.859888], [-8.082186, -34.889146], [-8.063112, -34.875773], [-8.028822, -34.89373], [-8.009288, -34.860122], [-8.010477, -34.869113], [-8.010569, -34.868503], [-8.058292, -34.881767], [-8.066824, -34.906617], [-8.0555, -34.876315], [-8.039346, -34.87154], [-8.020692, -34.881461], [-8.066594, -34.903548], [-8.055956, -34.871774], [-8.037516, -34.86466], [-8.031313, -34.916912], [-8.061261, -34.881754], [-8.060729, -34.87581], [-8.009123, -34.870562], [-8.016362, -34.871821], [-8.061243, -34.872499], [-8.000835, -34.856155], [-8.031576, -34.866392], [-8.039354, -34.863475], [-8.046252, -34.859826], [-8.049138, -34.875137], [-8.016709, -34.864011], [-8.055748, -34.871249], [-8.02935, -34.889229], [-8.033925, -34.917193], [-8.039943, -34.862454], [-8.032994, -34.914706], [-8.017156, -34.862765], [-8.035193, -34.914725], [-8.028349, -34.892356], [-8.062044, -34.902393], [-8.067668, -34.902134], [-8.060582, -34.906812], [-8.074918, -34.911177], [-8.071399, -34.898079], [-8.014028, -34.868443], [-8.066973, -34.870561], [-8.016382, -34.882668], [-8.005437, -34.872847], [-8.067203, -34.91071], [-8.031319, -34.895474], [-8.044587, -34.87317], [-8.035777, -34.860942], [-8.087462, -34.89119], [-8.035206, -34.919105], [-8.067266, -34.909683], [-8.037539, -34.91337], [-8.039208, -34.874183], [-8.039134, -34.882965], [-8.065368, -34.90472], [-8.012765, -34.880451], [-8.027784, -34.893637], [-8.034768, -34.914227], [-8.080997, -34.892466], [-8.030581, -34.894241], [-8.05133, -34.875006], [-8.032642, -34.889752], [-8.082281, -34.888023], [-8.062191, -34.874751], [-8.054558, -34.883496], [-8.033345, -34.858399], [-8.006234, -34.851538], [-8.026166, -34.919429], [-8.016529, -34.864897], [-8.066975, -34.903639], [-8.009823, -34.868659], [-8.069489, -34.902888], [-8.033169, -34.914529], [-8.009327, -34.867856], [-8.016523, -34.886009], [-8.031408, -34.919115], [-8.065866, -34.907351], [-8.03757, -34.916667], [-8.028606, -34.921187], [-8.015999, -34.86528], [-8.009543, -34.854035], [-8.037945, -34.864324], [-8.043808, -34.872892], [-8.077104, -34.894199], [-8.037675, -34.863341], [-8.058746, -34.869398], [-8.055901, -34.878352], [-8.01907, -34.88517], [-8.043853, -34.867569], [-8.017721, -34.885283], [-8.044592, -34.864162], [-8.023249, -34.920389], [-8.027121, -34.917433], [-8.011788, -34.867189], [-8.018879, -34.863283], [-8.040609, -34.918485], [-8.065903, -34.908628], [-8.054246, -34.880583], [-8.006854, -34.865034], [-8.071837, -34.898526], [-8.082418, -34.889781], [-8.039045, -34.869782], [-8.038268, -34.865113], [-8.060515, -34.904876], [-8.067145, -34.913063], [-8.015803, -34.86246], [-8.028297, -34.894808], [-8.00359, -34.857123], [-8.053332, -34.87369], [-8.046108, -34.880721], [-8.008116, -34.859894], [-8.069672, -34.896014], [-8.04182, -34.876632], [-8.060084, -34.873463], [-8.02117, -34.884526], [-8.054248, -34.873837], [-8.031951, -34.890672], [-8.037257, -34.9194], [-8.002074, -34.853453], [-8.051434, -34.874311], [-8.030341, -34.889008], [-8.002319, -34.852321], [-8.059229, -34.870863], [-8.039853, -34.872605], [-8.067862, -34.905649], [-8.033688, -34.861444], [-8.052333, -34.867163], [-8.022031, -34.887318], [-8.055299, -34.871646], [-8.018534, -34.859998], [-8.079793, -34.886655], [-8.041573, -34.867206], [-8.08515, -34.889728], [-8.047914, -34.874149], [-8.067541, -34.901251], [-8.035117, -34.916254], [-8.013213, -34.864266], [-8.081432, -34.888978], [-8.057446, -34.870186], [-8.006395, -34.870006], [-8.042518, -34.865684], [-8.022199, -34.884313], [-8.04819, -34.874106], [-8.031826, -34.913897], [-8.060643, -34.872137], [-8.053691, -34.873714], [-8.027714, -34.916482], [-8.022176, -34.895635], [-8.031306, -34.858061], [-8.037619, -34.912356], [-8.072749, -34.895934], [-8.004597, -34.854761], [-8.030585, -34.89291], [-8.062371, -34.909684], [-8.03599, -34.862635], [-8.053864, -34.866744], [-8.031169, -34.913986], [-8.061226, -34.867971], [-8.05846, -34.876588], [-8.047814, -34.87135], [-8.011698, -34.861816], [-8.043915, -34.866716], [-8.048546, -34.870652], [-8.031044, -34.894084], [-8.045162, -34.874947], [-8.00804, -34.864412], [-8.039647, -34.914226], [-8.008574, -34.870007], [-8.038276, -34.912496], [-8.019637, -34.86023], [-8.023801, -34.897026], [-8.028447, -34.891492], [-8.067882, -34.900728], [-8.03931, -34.872894], [-8.020853, -34.880228], [-8.082411, -34.893558], [-8.026715, -34.892769], [-8.035497, -34.914764], [-8.063625, -34.907939], [-8.087062, -34.897382], [-8.084127, -34.88614], [-8.057467, -34.868799], [-8.020232, -34.888586], [-8.004578, -34.875048], [-8.065839, -34.907894], [-8.022185, -34.878505], [-8.039362, -34.874919], [-8.059692, -34.872449], [-8.055415, -34.872583], [-8.030408, -34.893222], [-8.076082, -34.896158], [-8.048533, -34.864186], [-8.038526, -34.863291], [-8.042297, -34.866692], [-8.050954, -34.870621], [-8.063859, -34.902025], [-8.022025, -34.895496], [-8.058441, -34.867478], [-8.031878, -34.894597], [-8.010232, -34.868722], [-8.015328, -34.866808], [-8.010846, -34.863667], [-8.0236, -34.915961], [-8.058294, -34.863183], [-8.053279, -34.883829], [-8.037122, -34.867563], [-8.069577, -34.905234], [-8.053423, -34.875335], [-8.036163, -34.916241], [-8.056765, -34.871383], [-8.036788, -34.886841], [-8.036129, -34.914944], [-8.014913, -34.879308], [-8.036929, -34.877474], [-8.059235, -34.872604], [-8.065656, -34.905274], [-8.019843, -34.888182], [-8.061854, -34.870067], [-8.011539, -34.860841], [-8.049809, -34.869084], [-8.085032, -34.893546], [-8.033005, -34.917774], [-8.035981, -34.91564], [-8.066606, -34.903466], [-8.032553, -34.915144], [-8.05607, -34.876458], [-8.037864, -34.867846], [-8.039117, -34.914031], [-8.038499, -34.879601], [-8.06763, -34.899864], [-8.056696, -34.868574], [-8.023727, -34.916161], [-8.080492, -34.89948], [-8.053113, -34.871745], [-8.020594, -34.878796], [-8.041154, -34.863508], [-8.00531, -34.858717], [-8.030217, -34.912963], [-8.038147, -34.865481], [-8.010647, -34.862362], [-8.053871, -34.872061], [-8.0306, -34.865335], [-8.036594, -34.866704], [-8.032465, -34.88352], [-8.036078, -34.867631], [-8.018898, -34.864302], [-8.04457, -34.861416], [-8.004845, -34.854313], [-8.039327, -34.875288], [-8.034064, -34.864038], [-8.02381, -34.884139], [-8.041915, -34.880446], [-8.051626, -34.866006], [-8.085669, -34.891786], [-8.072087, -34.912754], [-8.036189, -34.911795], [-8.075089, -34.896438], [-8.031561, -34.91792], [-8.038992, -34.878682], [-8.047157, -34.865851], [-8.062654, -34.907373], [-8.066754, -34.904049], [-8.081898, -34.891666], [-8.056813, -34.870921], [-8.042957, -34.878852], [-8.055316, -34.874119], [-8.045935, -34.877859], [-8.060844, -34.875503], [-8.042628, -34.866898], [-8.059903, -34.870708], [-8.080735, -34.8912], [-8.06389, -34.905371], [-8.036491, -34.915548], [-8.082105, -34.894433], [-8.014224, -34.864362], [-8.011293, -34.868776], [-8.063666, -34.907477], [-8.068908, -34.899978], [-8.024519, -34.913362], [-8.034184, -34.85888], [-8.054422, -34.876774], [-8.036229, -34.865426], [-8.036912, -34.875383], [-8.07954, -34.892194], [-8.02778, -34.893451], [-8.025251, -34.923359], [-8.041464, -34.864312], [-8.044552, -34.860544], [-8.066174, -34.900455], [-8.042482, -34.868345], [-8.035383, -34.868945], [-8.034002, -34.912201], [-8.078804, -34.887642], [-8.022511, -34.885421], [-8.059574, -34.868943], [-8.009882, -34.874308], [-8.044157, -34.878398], [-8.082474, -34.882271], [-8.038544, -34.868319], [-8.05289, -34.874914], [-8.083866, -34.890252], [-8.011791, -34.868599], [-8.007426, -34.872485], [-8.052565, -34.86862], [-8.016374, -34.865478], [-8.032044, -34.895144], [-8.027035, -34.892496], [-8.032545, -34.866531], [-8.030713, -34.919422], [-8.034013, -34.858241], [-8.060077, -34.878907], [-8.051874, -34.869168], [-8.027034, -34.893033], [-8.03753, -34.864323], [-8.012926, -34.866089], [-8.071659, -34.906995], [-8.017346, -34.867279], [-8.003585, -34.860493], [-8.041227, -34.915258], [-8.07098, -34.913128], [-8.013607, -34.866652], [-8.072656, -34.909457], [-8.026242, -34.894237], [-8.040722, -34.877976], [-8.035493, -34.914364], [-8.038048, -34.919166], [-8.038652, -34.914522], [-8.008459, -34.869896], [-8.033035, -34.912568], [-8.008739, -34.872569], [-8.018793, -34.870379], [-8.055371, -34.881193], [-8.0542, -34.870192], [-8.044452, -34.87401], [-8.013529, -34.868537], [-8.033557, -34.915608], [-8.054892, -34.874269], [-8.011193, -34.866287], [-8.022904, -34.885931], [-8.027129, -34.917063], [-8.050174, -34.877515], [-8.036389, -34.91545], [-8.044574, -34.868519], [-8.053321, -34.876097], [-8.074187, -34.908226], [-8.028586, -34.894356], [-8.025021, -34.920647], [-8.017185, -34.864041], [-8.04258, -34.867012], [-8.027527, -34.896292], [-8.017218, -34.861424], [-8.041271, -34.872598], [-8.031095, -34.859473], [-8.084671, -34.892192], [-8.051588, -34.872486], [-8.067451, -34.897921], [-8.0674, -34.910724], [-8.016995, -34.88082], [-8.080712, -34.890861], [-8.05839, -34.864993], [-8.035156, -34.878966], [-8.05422, -34.873242], [-8.046246, -34.867344], [-8.072535, -34.914497], [-8.028262, -34.891355], [-8.082178, -34.886433], [-8.083039, -34.896835], [-8.059009, -34.870119], [-8.018538, -34.864483], [-8.060416, -34.902337], [-8.06982, -34.908835], [-8.041998, -34.869048], [-8.013863, -34.861309], [-8.039171, -34.861237], [-8.013387, -34.863715], [-8.068837, -34.903454], [-8.033448, -34.876288], [-8.036834, -34.915279], [-8.024649, -34.892441], [-8.059329, -34.904852], [-8.011825, -34.868911], [-8.020669, -34.858954], [-8.036192, -34.918307], [-8.04474, -34.870933], [-8.056481, -34.868658], [-8.038149, -34.910912], [-8.033544, -34.87337], [-8.016246, -34.868341], [-8.06423, -34.912324], [-8.041414, -34.883926], [-8.076195, -34.899915], [-8.065961, -34.90007], [-8.07259, -34.910094], [-8.003582, -34.859101], [-8.090113, -34.89389], [-8.0081, -34.869932], [-8.040955, -34.867404], [-8.021737, -34.886443], [-8.071553, -34.910264], [-8.032271, -34.898556], [-8.060036, -34.873955], [-8.010779, -34.865204], [-8.037413, -34.869249], [-8.036517, -34.895428], [-8.051449, -34.871665], [-8.037067, -34.861386], [-8.039848, -34.914101], [-8.059245, -34.867898], [-8.082313, -34.89082], [-8.052456, -34.869619], [-8.018059, -34.864381], [-8.080654, -34.889114], [-8.07975, -34.891162], [-8.069044, -34.902975], [-8.042432, -34.869108], [-8.031838, -34.913284], [-8.069613, -34.905435], [-8.009661, -34.871089], [-8.021165, -34.885917], [-8.060095, -34.867964], [-8.038066, -34.868673], [-8.034761, -34.911581], [-8.058296, -34.875738], [-8.009335, -34.866296], [-8.026214, -34.89477], [-8.069783, -34.904501], [-8.065947, -34.897341], [-8.039271, -34.865883], [-8.050601, -34.874304], [-8.057332, -34.875324], [-8.030111, -34.916118], [-8.07567, -34.911364], [-8.021823, -34.885412], [-8.019377, -34.884077], [-8.060642, -34.867604], [-8.005031, -34.870729], [-8.061789, -34.901184], [-8.051165, -34.875168], [-8.052326, -34.879987], [-8.038085, -34.868856], [-8.019557, -34.872892], [-8.025284, -34.921544], [-8.070181, -34.896617], [-8.022241, -34.88203], [-8.03342, -34.916432], [-8.014747, -34.864962], [-8.053806, -34.876509], [-8.067619, -34.900892], [-8.079041, -34.894136], [-8.020482, -34.886453], [-8.082526, -34.890525], [-8.041079, -34.86256], [-8.019165, -34.886528], [-8.041755, -34.879436], [-8.012953, -34.887148], [-8.045189, -34.870813], [-8.036148, -34.872279], [-8.054488, -34.867708], [-8.079023, -34.908286], [-8.073271, -34.912957], [-8.019668, -34.886879], [-8.043564, -34.917571], [-8.028769, -34.894614], [-8.015578, -34.869864], [-8.02943, -34.916445], [-8.040412, -34.922176], [-8.020017, -34.881464], [-8.04344, -34.866394], [-8.05717, -34.869974], [-8.015933, -34.886833], [-8.029689, -34.923538], [-8.011042, -34.86564], [-8.037526, -34.857324], [-8.067904, -34.899924], [-8.064507, -34.898411], [-8.040173, -34.874774], [-8.027371, -34.896275], [-8.011894, -34.867508], [-8.050275, -34.877663], [-8.02086, -34.882721], [-8.040179, -34.876519], [-8.043987, -34.868364], [-8.005396, -34.856571], [-8.061239, -34.879065], [-8.059795, -34.8729], [-8.080908, -34.88572], [-8.041522, -34.869081], [-8.04139, -34.869373], [-8.040473, -34.870183], [-8.071291, -34.914452], [-8.02138, -34.924582], [-8.081621, -34.894954], [-8.036271, -34.866097], [-8.03789, -34.868922], [-8.06689, -34.902804], [-8.066394, -34.904867], [-8.036516, -34.86685], [-8.034982, -34.868382], [-8.009537, -34.87101], [-8.020322, -34.881339], [-8.055288, -34.867891], [-8.002298, -34.849902], [-8.037956, -34.868461], [-8.009402, -34.868581], [-8.059983, -34.87849], [-8.058952, -34.870176], [-8.076155, -34.888925], [-8.014918, -34.865142], [-8.012821, -34.871682], [-8.052858, -34.871747], [-8.068787, -34.897852], [-8.065972, -34.903226], [-8.041078, -34.870474], [-8.031414, -34.91679], [-8.054577, -34.870903], [-8.05233, -34.876227], [-8.018276, -34.864594], [-8.063062, -34.912115], [-8.057114, -34.875329], [-8.057471, -34.872001], [-8.041822, -34.879213], [-8.086298, -34.891562], [-8.038455, -34.87554], [-8.021598, -34.882481], [-8.030702, -34.895893], [-8.040172, -34.868538], [-8.047638, -34.870954], [-8.062459, -34.905346], [-8.051377, -34.868371], [-8.082183, -34.895175], [-8.069399, -34.898173], [-8.020849, -34.866053], [-8.077891, -34.895258], [-8.079162, -34.894702], [-8.033949, -34.917533], [-8.056448, -34.885343], [-8.03432, -34.916685], [-8.062912, -34.90148], [-8.006022, -34.8535], [-8.034331, -34.860344], [-8.07081, -34.907284], [-8.0047, -34.853558], [-8.071485, -34.901493], [-8.08111, -34.888197], [-8.048471, -34.875999], [-8.036014, -34.861434], [-8.032471, -34.911511], [-8.043469, -34.86245], [-8.069678, -34.898838], [-8.078149, -34.888115], [-8.052463, -34.878458], [-8.01273, -34.869183], [-8.085584, -34.891143], [-8.03634, -34.868102], [-8.008738, -34.871734], [-8.019996, -34.883814], [-8.059768, -34.871376], [-8.039968, -34.874416], [-8.034509, -34.896583], [-8.062058, -34.874751], [-8.015642, -34.863862], [-8.019203, -34.883027], [-8.031561, -34.889827], [-8.017807, -34.865534], [-8.041252, -34.876968], [-8.055693, -34.872463], [-8.018511, -34.878775], [-8.001567, -34.859164], [-8.005159, -34.856653], [-8.050164, -34.869498], [-8.062773, -34.906913], [-8.03591, -34.915657], [-8.031121, -34.887164], [-8.026793, -34.918889], [-8.065301, -34.905172], [-8.058693, -34.86882], [-8.035382, -34.867898], [-8.053901, -34.874017], [-8.011613, -34.868034], [-8.029843, -34.917689], [-8.029624, -34.861712], [-8.043688, -34.860644], [-8.039789, -34.865898], [-8.029753, -34.895248], [-8.073531, -34.904538], [-8.035505, -34.864372], [-8.055018, -34.877648], [-8.011421, -34.861935], [-8.044379, -34.87324], [-8.009411, -34.868363], [-8.010024, -34.869526], [-8.031126, -34.913735], [-8.015648, -34.862188], [-8.078065, -34.895276], [-8.066035, -34.903532], [-8.017517, -34.864796], [-8.065674, -34.901537], [-8.070929, -34.896562], [-8.02805, -34.893317], [-8.076821, -34.894662], [-8.003931, -34.851215], [-8.037199, -34.911712], [-8.024635, -34.886618], [-8.007487, -34.872038], [-8.04143, -34.873661], [-8.013497, -34.852558], [-8.070677, -34.905833], [-8.030151, -34.866178], [-8.03985, -34.915688], [-8.05312, -34.879863], [-8.03589, -34.858535], [-8.030823, -34.892262], [-8.010554, -34.86585], [-8.041414, -34.875845], [-8.071925, -34.905004], [-8.042893, -34.868043], [-8.008559, -34.873165], [-8.042888, -34.875922], [-8.067416, -34.899246], [-8.011729, -34.865587], [-8.043111, -34.863004], [-8.05285, -34.879331], [-8.082248, -34.891271], [-8.038419, -34.878573], [-8.02347, -34.916182], [-8.051407, -34.877979], [-8.033001, -34.913266], [-8.020386, -34.880779], [-8.067134, -34.900116], [-8.018222, -34.883771], [-8.014756, -34.865114], [-8.061447, -34.902832], [-8.036979, -34.876446], [-8.035911, -34.862243], [-8.024368, -34.921465], [-8.034942, -34.918567], [-8.043138, -34.87658], [-8.052126, -34.882373], [-8.074095, -34.897896], [-8.030513, -34.859995], [-8.030187, -34.862855], [-8.053258, -34.877605], [-8.021688, -34.920769], [-8.066221, -34.906604], [-8.039492, -34.911157], [-8.052834, -34.88381], [-8.037984, -34.876847], [-8.039251, -34.881549], [-8.061912, -34.90261], [-8.037924, -34.913063], [-8.016961, -34.867652], [-8.049393, -34.874286], [-8.069163, -34.909125], [-8.047935, -34.863734], [-8.012807, -34.866952], [-8.035511, -34.915797], [-8.020344, -34.884207], [-8.068792, -34.903541], [-8.026151, -34.882782], [-8.070172, -34.914186], [-8.082788, -34.896788], [-8.080043, -34.887718], [-8.042731, -34.877742], [-8.034412, -34.859078], [-8.051039, -34.882623], [-8.070839, -34.900475], [-8.047537, -34.872042], [-8.052276, -34.870746], [-8.025229, -34.896152], [-8.031559, -34.891236], [-8.040734, -34.861721], [-8.022276, -34.880947], [-8.060419, -34.872773], [-8.082425, -34.888501], [-8.049535, -34.871588], [-8.013562, -34.872874], [-8.080407, -34.891553], [-8.050969, -34.870388], [-8.014608, -34.865425], [-8.055478, -34.873061], [-8.032228, -34.865054], [-8.020109, -34.884559], [-8.010769, -34.88092], [-8.024301, -34.921824], [-8.03602, -34.858703], [-8.062097, -34.902019], [-8.030557, -34.891574], [-8.083423, -34.894315], [-8.054318, -34.878092], [-8.085658, -34.893708], [-8.038193, -34.91503], [-8.03836, -34.912987], [-8.043176, -34.871053], [-8.01612, -34.863066], [-8.03649, -34.91846], [-8.072471, -34.911555], [-8.067519, -34.899526], [-8.004366, -34.851812], [-8.033947, -34.864122], [-8.031084, -34.858238], [-8.026658, -34.894504], [-8.057284, -34.873872], [-8.07871, -34.898574], [-8.051633, -34.881379], [-8.039991, -34.87431], [-8.0322, -34.891238], [-8.039752, -34.880185], [-8.00688, -34.872219], [-8.071157, -34.908696], [-8.078241, -34.88963], [-8.039019, -34.869168], [-8.00182, -34.855155], [-8.028956, -34.896089], [-8.052073, -34.872967], [-8.012818, -34.866642], [-8.060642, -34.900414], [-8.013025, -34.876258], [-8.062122, -34.868865], [-8.043831, -34.878661], [-8.062339, -34.90414], [-8.026305, -34.888093], [-8.081792, -34.891422], [-8.056298, -34.87295], [-8.0803, -34.893972], [-8.025866, -34.883661], [-8.055544, -34.872271], [-8.075387, -34.90099], [-8.045823, -34.864855], [-8.067203, -34.905425], [-8.037799, -34.864974], [-8.06477, -34.906535], [-8.033873, -34.864534], [-8.015174, -34.867205], [-8.014798, -34.863169], [-8.018096, -34.866321], [-8.027956, -34.896708], [-8.025807, -34.891385], [-8.050817, -34.866445], [-8.053128, -34.87185], [-8.043077, -34.868511], [-8.022516, -34.916787], [-8.042066, -34.864634], [-8.012813, -34.863947], [-8.082814, -34.89565], [-8.025872, -34.892942], [-8.011272, -34.870916], [-8.026006, -34.924023], [-8.042615, -34.867906], [-8.010062, -34.869132], [-8.035659, -34.913171], [-8.034397, -34.914698], [-8.051889, -34.878997], [-8.060981, -34.872592], [-8.085208, -34.889131], [-8.028051, -34.891485], [-8.034141, -34.865462], [-8.074176, -34.904888], [-8.071038, -34.907333], [-8.040301, -34.864796], [-8.018495, -34.884255], [-8.053799, -34.879395], [-8.057862, -34.876221], [-8.039442, -34.857382], [-8.009213, -34.855403], [-8.02298, -34.894768], [-8.007549, -34.874142], [-8.020773, -34.885209], [-8.012051, -34.870821], [-8.024551, -34.919707], [-8.025468, -34.891822], [-8.074747, -34.899849], [-8.047813, -34.877077], [-8.083722, -34.890391], [-8.041222, -34.875276], [-8.032373, -34.860634], [-8.081023, -34.885173], [-8.013446, -34.866588], [-8.015033, -34.864588], [-8.032552, -34.863391], [-8.064224, -34.870276], [-8.067616, -34.907079], [-8.040452, -34.880298], [-8.03107, -34.863821], [-8.042986, -34.876351], [-8.038905, -34.920559], [-8.057953, -34.869344], [-8.082602, -34.890897], [-8.060865, -34.881107], [-8.037754, -34.909806], [-8.082124, -34.890332], [-8.07554, -34.911286], [-8.011011, -34.872539], [-8.028992, -34.89453], [-8.002688, -34.847855], [-8.03452, -34.869518], [-8.009813, -34.869678], [-8.053526, -34.869802], [-8.038487, -34.864127], [-8.039542, -34.871597], [-8.03496, -34.915675], [-8.001193, -34.87322], [-8.063752, -34.903199], [-8.032577, -34.866482], [-8.005771, -34.854077], [-8.044193, -34.874392], [-8.022487, -34.920306], [-8.037747, -34.876037], [-8.04204, -34.869799], [-8.002542, -34.853728], [-8.041616, -34.8794], [-8.067453, -34.908401], [-8.037216, -34.919881], [-8.066242, -34.912337], [-8.068748, -34.896427], [-8.054724, -34.871644], [-8.047828, -34.871128], [-8.018599, -34.862903], [-8.06765, -34.914411], [-8.030328, -34.892763], [-8.036023, -34.861919], [-8.065144, -34.908753], [-8.03791, -34.869815], [-8.015279, -34.88363], [-8.052755, -34.871032], [-8.027761, -34.890724], [-8.081164, -34.892626], [-8.040426, -34.868339], [-8.031754, -34.915387], [-8.057277, -34.882936], [-8.031299, -34.917415], [-8.05997, -34.873781], [-8.025662, -34.920581], [-8.05733, -34.873595], [-8.054369, -34.879405], [-8.021553, -34.884347], [-8.087241, -34.893616], [-8.027231, -34.88942], [-8.036494, -34.916538], [-8.016042, -34.862688], [-8.043717, -34.877106], [-8.058988, -34.864975], [-8.071604, -34.910997], [-8.033159, -34.860874], [-8.028513, -34.861619], [-8.057896, -34.873715], [-8.032825, -34.860139], [-8.034814, -34.917783], [-8.032492, -34.88891], [-8.071467, -34.905233], [-8.058377, -34.883289], [-8.056705, -34.867781], [-8.041748, -34.913174], [-8.021759, -34.886859], [-8.059946, -34.902473], [-8.020947, -34.924538], [-8.064534, -34.872098], [-8.064691, -34.904552], [-8.062591, -34.904281], [-8.060678, -34.879066], [-8.071192, -34.908397], [-8.052555, -34.874981], [-8.024549, -34.893616], [-8.01158, -34.871571], [-8.032371, -34.864128], [-8.029147, -34.898928], [-8.061537, -34.872898], [-8.067222, -34.910273], [-8.053032, -34.877108], [-8.017314, -34.870322], [-8.021852, -34.884679], [-8.047936, -34.876839], [-8.051448, -34.878975], [-8.016806, -34.8669], [-8.059623, -34.870733], [-8.057049, -34.865695], [-8.054221, -34.876326], [-8.049886, -34.883324], [-8.053802, -34.874886], [-8.008109, -34.85561], [-8.041021, -34.866729], [-8.075902, -34.900064], [-8.027252, -34.89398], [-8.065454, -34.898855], [-8.071501, -34.90051], [-8.04255, -34.868059], [-8.066703, -34.89412], [-8.044752, -34.87189], [-8.025765, -34.892598], [-8.012134, -34.871153], [-8.024935, -34.894136], [-8.051707, -34.874827], [-8.083955, -34.898583], [-8.079891, -34.8904], [-8.086146, -34.893451], [-8.038154, -34.922595], [-8.053425, -34.870593], [-8.080087, -34.891224], [-8.044557, -34.876486], [-8.073719, -34.904509], [-8.036985, -34.91274], [-8.067569, -34.906835], [-8.044961, -34.872538], [-8.011124, -34.867248], [-8.064369, -34.905481], [-8.043167, -34.879061], [-8.032143, -34.856932], [-8.036328, -34.878593], [-8.033014, -34.886892], [-8.051476, -34.871016], [-8.04378, -34.872518], [-8.035191, -34.919353], [-8.054853, -34.873088], [-8.073137, -34.910079], [-8.022759, -34.919906], [-8.011737, -34.862925], [-8.007995, -34.855008], [-8.036032, -34.916124], [-8.043872, -34.870004], [-8.049045, -34.871953], [-8.054931, -34.865069], [-8.078497, -34.894172], [-8.046217, -34.864442], [-8.02166, -34.885762], [-8.038852, -34.861625], [-8.053772, -34.88083], [-8.040623, -34.868565], [-8.065642, -34.902089], [-8.004338, -34.858813], [-8.067304, -34.899887], [-8.0767, -34.888884], [-8.036533, -34.922661], [-8.020978, -34.883829], [-8.038961, -34.870338], [-8.00857, -34.864852], [-8.069017, -34.907143], [-8.0639, -34.907221], [-8.014546, -34.864105], [-8.079879, -34.885746], [-8.083019, -34.891305], [-8.039679, -34.873499], [-8.017718, -34.890229], [-8.053295, -34.868657], [-8.040528, -34.877751], [-8.078615, -34.894628], [-8.049969, -34.871133], [-8.030015, -34.893164], [-8.031978, -34.864436], [-8.014309, -34.867918], [-8.060191, -34.875998], [-8.009862, -34.871923], [-8.013957, -34.86994], [-8.035965, -34.876921], [-8.084854, -34.893025], [-8.034857, -34.916693], [-8.021235, -34.921493], [-8.053505, -34.870795], [-8.027005, -34.896141], [-8.051428, -34.8722], [-8.040315, -34.876162], [-8.058651, -34.869825], [-8.01603, -34.871257], [-8.027104, -34.89532], [-8.037739, -34.871108], [-8.013806, -34.863816], [-8.026649, -34.893785], [-8.045715, -34.879302], [-8.042301, -34.879812], [-8.028644, -34.926625], [-8.081592, -34.892158], [-8.014871, -34.861931], [-8.011722, -34.870843], [-8.030764, -34.916884], [-8.063985, -34.907978], [-8.046397, -34.873307], [-8.016152, -34.864393], [-8.067929, -34.905136], [-8.045827, -34.879068], [-8.023127, -34.883289], [-8.033556, -34.85744], [-8.03345, -34.917944], [-8.019678, -34.885957], [-8.04324, -34.869385], [-8.034335, -34.865493], [-8.067508, -34.904076], [-8.068644, -34.901068], [-8.032906, -34.918698], [-8.040628, -34.861705], [-8.063227, -34.905321], [-8.033242, -34.892716], [-8.07252, -34.904108], [-8.035855, -34.862319], [-8.015775, -34.86347], [-8.064114, -34.905715], [-8.029543, -34.911468], [-8.021913, -34.866083], [-8.028692, -34.88969], [-8.039343, -34.880525], [-8.062948, -34.907444], [-8.008749, -34.855796], [-8.034194, -34.918344], [-8.056791, -34.885023], [-8.037897, -34.867518], [-8.015709, -34.865359], [-8.012538, -34.864447], [-8.015714, -34.865667], [-8.016774, -34.863925], [-8.039481, -34.921372], [-8.071636, -34.901218], [-8.022764, -34.886696], [-8.083411, -34.890163], [-8.049145, -34.877395], [-8.026554, -34.920903], [-8.02127, -34.916316], [-8.045382, -34.8797], [-8.054971, -34.873093], [-8.08316, -34.893907], [-8.040919, -34.870732], [-8.06794, -34.909853], [-8.037452, -34.861036], [-8.077823, -34.889983], [-8.032436, -34.887983], [-8.042503, -34.884798], [-8.005683, -34.852854], [-8.036561, -34.858647], [-8.014713, -34.866755], [-8.036725, -34.878211], [-8.015456, -34.86182], [-8.029164, -34.893528], [-8.064986, -34.912704], [-8.04026, -34.874227], [-8.025705, -34.922681], [-8.07562, -34.908062], [-8.011243, -34.864516], [-8.009754, -34.875257], [-8.039983, -34.8675], [-8.02679, -34.8959], [-8.081691, -34.898942], [-8.036675, -34.864319], [-8.031266, -34.908306], [-8.025686, -34.892997], [-8.023521, -34.917499], [-8.034502, -34.87], [-8.03459, -34.914924], [-8.032571, -34.860407], [-8.055369, -34.878192], [-8.048839, -34.882438], [-8.081895, -34.896127], [-8.069622, -34.907447], [-8.013986, -34.866777], [-8.041998, -34.865942], [-8.056659, -34.874916], [-8.043131, -34.87128], [-8.030995, -34.88813], [-8.048821, -34.870229], [-8.072391, -34.909877], [-8.083182, -34.890387], [-8.017995, -34.863444], [-8.064486, -34.901542], [-8.056596, -34.876511]],
+                {
+  "minOpacity": 0.5,
+  "maxZoom": 13,
+  "radius": 12,
+  "blur": 18,
+}
+            );
+        
+    
+            heat_map_58f5941a407431d059dd878197fd49da.addTo(feature_group_145fff62da3b6be99e39b1e6ab0a981e);
+        
+    
+            var layer_control_e9d4267b6f01c8639ac50a1bba02fba0_layers = {
+                base_layers : {
+                    "cartodbpositron" : tile_layer_940d4dd2ae93db873044309d0166c83d,
+                },
+                overlays :  {
+                    "Bairros (volume)" : feature_group_7a7a39f0b8351971506417f7aebbb7de,
+                    "Calor (heatmap)" : feature_group_145fff62da3b6be99e39b1e6ab0a981e,
+                },
+            };
+            let layer_control_e9d4267b6f01c8639ac50a1bba02fba0 = L.control.layers(
+                layer_control_e9d4267b6f01c8639ac50a1bba02fba0_layers.base_layers,
+                layer_control_e9d4267b6f01c8639ac50a1bba02fba0_layers.overlays,
+                {
+  "position": "topright",
+  "collapsed": false,
+  "autoZIndex": true,
+}
+            ).addTo(map_881d280af4518df413e294707183b92b);
+
+        
+</script>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vigia Recife - Painel de Gestao</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: #f5f5f5; color: #333; }
+  .header { background: linear-gradient(135deg, #B71C1C, #D32F2F); color: white; padding: 20px 30px; }
+  .header h1 { font-size: 24px; }
+  .header p { opacity: 0.85; margin-top: 4px; font-size: 13px; }
+  .container { max-width: 1200px; margin: 20px auto; padding: 0 20px; }
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-bottom: 25px; }
+  .kpi-card { background: white; border-radius: 8px; padding: 18px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); text-align: center; }
+  .kpi-card .valor { font-size: 28px; font-weight: bold; color: #B71C1C; }
+  .kpi-card .label { font-size: 12px; color: #666; margin-top: 4px; }
+  .secao { background: white; border-radius: 8px; padding: 20px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+  .secao h2 { font-size: 16px; color: #B71C1C; margin-bottom: 12px; border-bottom: 2px solid #ffcdd2; padding-bottom: 6px; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { background: #fafafa; text-align: left; padding: 8px 10px; border-bottom: 2px solid #eee; font-weight: 600; }
+  td { padding: 7px 10px; border-bottom: 1px solid #f0f0f0; }
+  tr:hover { background: #fff8f8; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 600; }
+  .badge-critica { background: #ffcdd2; color: #b71c1c; }
+  .badge-alta { background: #ffe0b2; color: #e65100; }
+  .badge-media { background: #fff9c4; color: #f57f17; }
+  .badge-baixa { background: #e8f5e9; color: #2e7d32; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 768px) { .grid-2 { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Vigia Recife - Painel de Gestao</h1>
+  <p>Plataforma de Inteligencia Urbana para Seguranca Publica | Gerado em 30/08/2026 13:54</p>
+</div>
+<div class="container">
+
+<div class="kpis">
+<div class="kpi-card"><div class="valor">2000</div><div class="label">Fogo Cruzado - Total</div></div>
+<div class="kpi-card"><div class="valor">25</div><div class="label">Bairros mapeados</div></div>
+<div class="kpi-card"><div class="valor">6.2%</div><div class="label">Taxa acao policial</div></div>
+<div class="kpi-card"><div class="valor">—</div><div class="label">Relatos cidadaos</div></div>
+<div class="kpi-card"><div class="valor">—</div><div class="label">Relatos abertos</div></div>
+<div class="kpi-card"><div class="valor">—</div><div class="label">Relatos confirmados</div></div>
+<div class="kpi-card"><div class="valor">—</div><div class="label">Confirmacoes comunitarias</div></div>
+</div>
+<div class="secao"><h2>Triagem Automatica de Relatos</h2>
+<p style="color:#999">Nenhum relato registrado ainda.</p>
+</div>
+<div class="grid-2">
+<div class="secao"><h2>Top Bairros - Fogo Cruzado</h2>
+<table><tr><th>Bairro</th><th>Ocorrencias</th></tr>
+<tr><td>VARZEA</td><td>163</td></tr>
+<tr><td>NOVA DESCOBERTA</td><td>154</td></tr>
+<tr><td>IBURA</td><td>150</td></tr>
+<tr><td>IPUTINGA</td><td>148</td></tr>
+<tr><td>COHAB</td><td>133</td></tr>
+<tr><td>ALTO JOSE DO PINHO</td><td>103</td></tr>
+<tr><td>SAN MARTIN</td><td>97</td></tr>
+<tr><td>MANGABEIRA</td><td>92</td></tr>
+<tr><td>CORDOARIA</td><td>91</td></tr>
+<tr><td>CURADO</td><td>83</td></tr>
+</table>
+</div>
+<div class="secao"><h2>Top Bairros - Relatos Cidadaos</h2>
+<p style="color:#999">Nenhum relato cidadao registrado.</p>
+</div>
+</div>
+</div></body></html>

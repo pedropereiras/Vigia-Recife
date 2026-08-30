@@ -1,0 +1,99 @@
+# -*- coding: utf-8 -*-
+"""
+config.py
+=========
+Configurações centrais do projeto Vigia Recife.
+
+Centraliza caminhos de arquivos, paleta de cores e constantes de domínio
+usadas em múltiplos módulos. Qualquer ajuste estrutural (ex.: mudar o nome
+do arquivo de dados brutos) deve ser feito apenas aqui — nunca duplicado
+dentro de outro módulo.
+"""
+
+from pathlib import Path
+
+# ---------------------------------------------------------------------------
+# Caminhos do projeto
+# ---------------------------------------------------------------------------
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+DATA_RAW_DIR = BASE_DIR / "data" / "raw"
+DATA_PROCESSED_DIR = BASE_DIR / "data" / "processed"
+OUTPUTS_DIR = BASE_DIR / "outputs"
+FIGURES_DIR = OUTPUTS_DIR / "figures"
+
+# Nome do arquivo de dados brutos dentro de data/raw/
+RAW_CSV_NAME = "eventos.csv"
+RAW_CSV_PATH = DATA_RAW_DIR / RAW_CSV_NAME
+RAW_CSV_ENCODING = "utf-8"
+
+RELATORIO_FILENAME = "relatorio.txt"
+
+# Garante que as pastas de saída existam ao importar o módulo
+for _dir in (DATA_PROCESSED_DIR, FIGURES_DIR, OUTPUTS_DIR):
+    _dir.mkdir(parents=True, exist_ok=True)
+
+# ---------------------------------------------------------------------------
+# Paleta visual padrão (usada em src/graficos.py)
+# ---------------------------------------------------------------------------
+COR_PRIMARIA = "#B71C1C"
+COR_SECUNDARIA = "#1976D2"
+COR_NEUTRA = "#9E9E9E"
+COR_POSITIVA = "#388E3C"
+
+# ---------------------------------------------------------------------------
+# Constantes de domínio
+# ---------------------------------------------------------------------------
+MONTH_MAP = {
+    1: "JANEIRO", 2: "FEVEREIRO", 3: "MARÇO", 4: "ABRIL",
+    5: "MAIO", 6: "JUNHO", 7: "JULHO", 8: "AGOSTO",
+    9: "SETEMBRO", 10: "OUTUBRO", 11: "NOVEMBRO", 12: "DEZEMBRO",
+}
+
+DAY_MAP = {
+    "Monday": "SEGUNDA-FEIRA", "Tuesday": "TERÇA-FEIRA",
+    "Wednesday": "QUARTA-FEIRA", "Thursday": "QUINTA-FEIRA",
+    "Friday": "SEXTA-FEIRA", "Saturday": "SÁBADO", "Sunday": "DOMINGO",
+}
+
+ORDEM_DIAS_SEMANA = [
+    "SEGUNDA-FEIRA", "TERÇA-FEIRA", "QUARTA-FEIRA", "QUINTA-FEIRA",
+    "SEXTA-FEIRA", "SÁBADO", "DOMINGO",
+]
+
+ORDEM_FAIXA_ETARIA = ["CRIANÇA", "ADOLESCENTE", "ADULTO", "IDOSO"]
+
+MIN_OCORRENCIAS_CLUSTER = 10
+MIN_OCORRENCIAS_BAIRRO = 20
+MIN_OCORRENCIAS_TIPO = 10
+
+HORA_PADRAO_ARTEFATO = 21
+IDADE_MINIMA = 0
+IDADE_MAXIMA = 110
+
+CENTRO_RECIFE_LAT = -8.0476
+CENTRO_RECIFE_LON = -34.877
+
+DATA_SENTINEL_ANOS = 1900
+
+CTTU_CSV_NAME = "cttu_acidentes.csv"
+CTTU_CSV_PATH = DATA_RAW_DIR / CTTU_CSV_NAME
+
+SDSDPE_CSV_NAME = "sdsdpe_cvli.csv"
+SDSDPE_CSV_PATH = DATA_RAW_DIR / SDSDPE_CSV_NAME
+
+RELATOS_FILENAME = "relatos.json"
+RELATOS_PATH = DATA_PROCESSED_DIR / RELATOS_FILENAME
+
+PAINEL_FILENAME = "painel_gestao.html"
+PAINEL_PATH = OUTPUTS_DIR / PAINEL_FILENAME
+
+MAPA_FILENAME = "mapa_interativo.html"
+MAPA_PATH = FIGURES_DIR / MAPA_FILENAME
+
+MIN_OCORRENCIAS_MAPA = 5
+
+
+def ensure_dirs():
+    for _dir in (DATA_PROCESSED_DIR, FIGURES_DIR, OUTPUTS_DIR):
+        _dir.mkdir(parents=True, exist_ok=True)
