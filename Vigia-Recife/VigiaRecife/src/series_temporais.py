@@ -1,19 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-series_temporais.py
-====================
-Evolução mensal das ocorrências, média móvel e teste estatístico formal de
-tendência (regressão linear).
-
-Por que um teste formal, e não só inspeção visual do gráfico
---------------------------------------------------------------
-Oscilações visuais em uma série mensal (picos e vales) não implicam
-tendência real de crescimento ou queda. A regressão linear com teste de
-significância (scipy.stats.linregress) evita a armadilha comum de afirmar
-uma tendência "porque o gráfico parece subir/descer", quando estatisticamente
-essa variação pode não ser distinguível de ruído.
-"""
-
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -23,10 +7,7 @@ from src.config import COR_PRIMARIA, COR_SECUNDARIA
 
 
 def serie_mensal_completa(df: pd.DataFrame, coluna_data: str = "data") -> pd.Series:
-    """
-    Série mensal de ocorrências, removendo o último mês se estiver
-    incompleto (mês corrente na data de extração da base).
-    """
+    
     serie = df.set_index(coluna_data).resample("ME").size()
 
     if len(serie) == 0:
@@ -37,7 +18,7 @@ def serie_mensal_completa(df: pd.DataFrame, coluna_data: str = "data") -> pd.Ser
 
 
 def grafico_serie_mensal(serie: pd.Series, caminho=None):
-    """Gráfico de linha da série mensal bruta."""
+    
     plt.figure(figsize=(14, 5))
     plt.plot(serie, linewidth=2, color=COR_PRIMARIA)
     plt.title("Ocorrências Mensais")
@@ -50,7 +31,7 @@ def grafico_serie_mensal(serie: pd.Series, caminho=None):
 
 
 def grafico_media_movel(serie: pd.Series, janela: int = 6, caminho=None) -> pd.Series:
-    """Série original sobreposta à média móvel (suaviza oscilações de curto prazo)."""
+    
     media_movel = serie.rolling(janela).mean()
 
     plt.figure(figsize=(14, 5))
@@ -69,18 +50,7 @@ def grafico_media_movel(serie: pd.Series, janela: int = 6, caminho=None) -> pd.S
 
 
 def verificar_tendencia(serie: pd.Series) -> dict:
-    """
-    Regressão linear sobre a série mensal completa.
-
-    Returns
-    -------
-    dict com slope, p_valor, significativa (bool) e direcao (str ou None).
-
-    Raises
-    ------
-    ValueError
-        Se a série tiver menos de 3 meses de dados válidos.
-    """
+    
     serie_valida = serie.dropna()
     if len(serie_valida) < 3:
         raise ValueError("Série precisa de pelo menos tres meses de dados válidos para teste de tendência.")
