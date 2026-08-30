@@ -1,15 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-Gera dados de exemplo realistas para data/raw/eventos.csv.
-
-Uso:
-    python scripts/gerar_dados_exemplo.py
-
-Gera ~2000 registros de ocorrências violentas no Recife (2018-2025),
-distribuídos por bairro, tipo, gênero, raça e período do dia, com
-coordenadas aproximadas de cada bairro.
-"""
-
 import random
 import sys
 from pathlib import Path
