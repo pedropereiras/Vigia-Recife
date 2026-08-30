@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) 2026 Pedro pereira
+Copyright (c) 2026 Pedro Pereira
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -19,3 +19,10 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+---
+
+Nota sobre os dados: esta licença cobre o CÓDIGO deste repositório. Os dados
+em data/ têm origem na API do Fogo Cruzado (https://fogocruzado.org.br) e
+estão sujeitos aos termos de uso próprios dessa fonte — confirme a política
+de redistribuição antes de publicar qualquer dado tratado.
