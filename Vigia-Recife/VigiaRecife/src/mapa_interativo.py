@@ -1,14 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-Mapa interativo por bairro/quadra com curva de risco por horário.
-
-Gera um mapa Folium com:
-  - Marcadores coloridos por volume de ocorrências (quartis)
-  - Popup com perfil resumido do bairro
-  - Gráfico inline de curva de risco por hora (top 10 bairros)
-  - Camada de calor (heatmap) ativável
-"""
-
 from pathlib import Path
 
 import pandas as pd
