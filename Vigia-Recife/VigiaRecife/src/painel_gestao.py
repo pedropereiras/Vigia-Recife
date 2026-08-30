@@ -1,8 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Painel de gestão para a prefeitura com triagem automática.
-"""
-
 import json
 from datetime import datetime
 from pathlib import Path
