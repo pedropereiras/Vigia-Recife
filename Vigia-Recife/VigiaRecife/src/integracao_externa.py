@@ -1,13 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Integração com bases de dados externas:
-  - SDS-PE (Secretaria de Defesa Social de Pernambuco): estatísticas de CVLI
-  - CTTU (Companhia de Transporte e Trânsito de Recife): acidentes de trânsito
-
-Cada base externa é carregada a partir de um CSV em data/raw/, padronizada
-para os campos comuns do projeto e concatenada à base principal do Fogo Cruzado.
-"""
-
 import pandas as pd
 from pathlib import Path
 
