@@ -1,17 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-graficos.py
-===========
-Todas as funções de visualização do projeto: distribuição por bairro,
-evolução temporal, perfil demográfico (gênero, raça, pirâmide etária) e
-densidade espacial.
-
-Convenção: toda função de gráfico recebe o DataFrame de análise (df_analise)
-e, opcionalmente, um `caminho` para salvar a figura em outputs/figures/.
-Quando `caminho` é None, a figura é apenas exibida (plt.show()) — útil no
-notebook interativo; quando informado, é salva em disco — usado por main.py.
-"""
-
 from pathlib import Path
 
 import numpy as np
@@ -23,7 +9,7 @@ from src.config import COR_PRIMARIA, COR_SECUNDARIA, COR_NEUTRA, COR_POSITIVA, O
 
 
 def _finalizar(caminho: str | Path | None):
-    """Salva ou exibe a figura corrente, e fecha a figura para liberar memória."""
+    
     if caminho:
         plt.tight_layout()
         plt.savefig(caminho, dpi=110)
@@ -34,11 +20,7 @@ def _finalizar(caminho: str | Path | None):
 
 
 def grafico_distribuicao_hora(hora_bruta: pd.Series, caminho=None):
-    """
-    Gráfico de barras da distribuição de ocorrências por hora, usando a hora
-    BRUTA (sem tratamento) — usado especificamente na Seção 5 do notebook
-    para evidenciar visualmente o artefato de horário padrão às 21h.
-    """
+    
     plt.figure(figsize=(12, 5))
     hora_bruta.plot(kind="bar", color="firebrick")
     plt.title("Distribuição das Ocorrências por Hora (dado bruto)")
@@ -49,7 +31,7 @@ def grafico_distribuicao_hora(hora_bruta: pd.Series, caminho=None):
 
 
 def grafico_bairro(df: pd.DataFrame, top: int = 10, caminho=None):
-    """Top N bairros com maior número de ocorrências (barras horizontais)."""
+    
     bairros = df["neighborhood"].value_counts().head(top).sort_values()
 
     fig, ax = plt.subplots(figsize=(12, 7))
@@ -66,7 +48,7 @@ def grafico_bairro(df: pd.DataFrame, top: int = 10, caminho=None):
 
 
 def perfil_temporal(df: pd.DataFrame, caminho=None) -> pd.Series:
-    """Série anual de ocorrências (linha)."""
+
     serie = df.groupby("ano").size()
 
     plt.figure(figsize=(10, 5))
@@ -81,7 +63,7 @@ def perfil_temporal(df: pd.DataFrame, caminho=None) -> pd.Series:
 
 
 def grafico_genero(df: pd.DataFrame, caminho=None):
-    """Distribuição de vítimas por gênero, com rótulo percentual."""
+    
     dados = df["genre"].value_counts()
 
     fig, ax = plt.subplots(figsize=(9, 5))
@@ -98,10 +80,7 @@ def grafico_genero(df: pd.DataFrame, caminho=None):
 
 
 def grafico_raca(df: pd.DataFrame, caminho=None):
-    """
-    Distribuição por raça, incluindo "NÃO IDENTIFICADO" em cinza — deixa a
-    subnotificação explícita no próprio gráfico, em vez de escondê-la.
-    """
+    
     dados = df["race"].fillna("NÃO INFORMADO").value_counts()
     cores = [COR_NEUTRA if cat in ("NÃO IDENTIFICADO", "NÃO INFORMADO") else COR_POSITIVA for cat in dados.index]
 
@@ -118,7 +97,7 @@ def grafico_raca(df: pd.DataFrame, caminho=None):
 
 
 def grafico_raca_apenas_identificada(df: pd.DataFrame, caminho=None):
-    """Mesma distribuição de raça, mas filtrando apenas os casos identificados."""
+
     df_id = df[~df["race"].isin(["NÃO IDENTIFICADO"]) & df["race"].notna()]
     dados = df_id["race"].value_counts()
 
@@ -139,7 +118,7 @@ def grafico_raca_apenas_identificada(df: pd.DataFrame, caminho=None):
 
 
 def perfil_bairro(df: pd.DataFrame, bairro: str) -> pd.DataFrame:
-    """Ficha-resumo de um bairro: tipo predominante, gênero, faixa etária e dia crítico."""
+   
     dados = df[df["neighborhood"] == bairro]
 
     return pd.DataFrame({
@@ -155,21 +134,13 @@ def perfil_bairro(df: pd.DataFrame, bairro: str) -> pd.DataFrame:
 
 
 def painel_top_bairros(df: pd.DataFrame, top: int = 5) -> pd.DataFrame:
-    """Concatena o perfil-resumo dos N bairros com mais ocorrências."""
+    
     top_bairros = df["neighborhood"].value_counts().head(top).index
     return pd.concat([perfil_bairro(df, b) for b in top_bairros], ignore_index=True)
 
 
-# ---------------------------------------------------------------------------
-# Pirâmide etária
-# ---------------------------------------------------------------------------
-
 def montar_piramide(df: pd.DataFrame) -> pd.DataFrame | None:
-    """
-    Monta a tabela cruzada faixa etária x gênero (homem cis / mulher cis)
-    usada como base da pirâmide etária. Filtra localmente apenas para este
-    gráfico — não remove "não identificado" da base geral do projeto.
-    """
+    
     base = df[df["genre"].isin(["HOMEM CIS", "MULHER CIS"]) & df["ageGroup"].isin(ORDEM_FAIXA_ETARIA)]
     if base.empty:
         return None
@@ -177,7 +148,7 @@ def montar_piramide(df: pd.DataFrame) -> pd.DataFrame | None:
 
 
 def plot_piramide(pir: pd.DataFrame, titulo: str, caminho=None):
-    """Renderiza a pirâmide etária (homens à esquerda, mulheres à direita)."""
+    
     pir = pir.copy()
     pir["HOMEM CIS"] = -pir["HOMEM CIS"]
     limite = max(pir["MULHER CIS"].max(), abs(pir["HOMEM CIS"].min())) + 5
@@ -206,7 +177,7 @@ def plot_piramide(pir: pd.DataFrame, titulo: str, caminho=None):
 
 
 def piramide_bairro(df: pd.DataFrame, bairro: str, caminho=None) -> pd.DataFrame | None:
-    """Pirâmide etária filtrada para um único bairro — função reutilizável."""
+    
     dados = df[df["neighborhood"] == bairro]
     pir = montar_piramide(dados)
     if pir is None:
@@ -216,12 +187,8 @@ def piramide_bairro(df: pd.DataFrame, bairro: str, caminho=None) -> pd.DataFrame
     return pir
 
 
-# ---------------------------------------------------------------------------
-# Densidade espacial
-# ---------------------------------------------------------------------------
-
 def grafico_densidade_espacial(df: pd.DataFrame, caminho=None):
-    """Estimativa de densidade Kernel (KDE) das ocorrências, sobreposta a scatter dos pontos."""
+   
     plt.figure(figsize=(9, 9))
     sns.kdeplot(data=df, x="longitude", y="latitude", fill=True, cmap="Reds", thresh=0.02)
     plt.scatter(df["longitude"], df["latitude"], s=4, color="black", alpha=0.3)
@@ -230,12 +197,8 @@ def grafico_densidade_espacial(df: pd.DataFrame, caminho=None):
 
 
 def gerar_mapa_calor(df: pd.DataFrame, bairro: str | None = None):
-    """
-    Gera um mapa de calor interativo (Folium). Retorna o objeto `folium.Map`
-    — quem chama decide se exibe (Jupyter) ou salva (`mapa.save("arquivo.html")`).
-
-    Se `bairro` for informado, centraliza o mapa nesse bairro específico.
-    """
+    airro` for informado, centraliza o mapa nesse bairro específico.
+    
     import folium
     from folium.plugins import HeatMap
 
@@ -246,7 +209,7 @@ def gerar_mapa_calor(df: pd.DataFrame, bairro: str | None = None):
         centro = [dados["latitude"].mean(), dados["longitude"].mean()]
         zoom = 14
     else:
-        centro = [-8.0476, -34.8770]  # Recife
+        centro = [-8.0476, -34.8770]  
         zoom = 12
 
     mapa = folium.Map(location=centro, zoom_start=zoom, tiles="cartodbpositron")
