@@ -1,23 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-clusterizacao.py
-=================
-Correlação entre variáveis e clusterização comportamental de bairros.
-
-Metodologia
------------
-O agrupamento de bairros não usa apenas volume de ocorrências — isso faria
-os clusters ficarem dominados pelo tamanho populacional do bairro. Em vez
-disso, cada bairro é descrito por um perfil comportamental: proporção de
-ocorrências por período do dia, proporção dos tipos de ocorrência mais
-comuns, idade média das vítimas, % de ação policial e % de casos em fim
-de semana.
-
-O número de clusters (k) é escolhido de forma orientada a dados, via
-método do cotovelo (inércia) combinado com coeficiente de silhueta — não
-fixado arbitrariamente.
-"""
-
 from pathlib import Path
 
 import numpy as np
@@ -32,10 +12,7 @@ from src.config import COR_PRIMARIA, COR_SECUNDARIA, MIN_OCORRENCIAS_CLUSTER
 
 
 def preparar_correlacao(df: pd.DataFrame) -> pd.DataFrame:
-    """
-    Codifica colunas categóricas (Label Encoding) exclusivamente para a
-    análise de correlação — o restante do projeto nunca usa esses códigos.
-    """
+    
     dados = df.copy()
     encoder = LabelEncoder()
 
@@ -47,7 +24,7 @@ def preparar_correlacao(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def matriz_correlacao(df: pd.DataFrame, caminho=None) -> pd.DataFrame:
-    """Matriz de correlação entre hora, bairro, tipo, ação policial e idade."""
+    
     import seaborn as sns
 
     dados = preparar_correlacao(df)
@@ -68,11 +45,7 @@ def matriz_correlacao(df: pd.DataFrame, caminho=None) -> pd.DataFrame:
 
 
 def construir_perfil_bairros(df: pd.DataFrame, min_ocorrencias: int = MIN_OCORRENCIAS_CLUSTER) -> pd.DataFrame:
-    """
-    Constrói a tabela de atributos comportamentais por bairro, usada como
-    entrada da clusterização. Bairros com poucas ocorrências são excluídos
-    para evitar que ruído estatístico distorça o agrupamento.
-    """
+   
     agg_volume = df.groupby("neighborhood").agg(
         ocorrencias=("id", "count"),
         idade_media=("age", "mean"),
@@ -95,14 +68,8 @@ def construir_perfil_bairros(df: pd.DataFrame, min_ocorrencias: int = MIN_OCORRE
 
 
 def escolher_k(X: np.ndarray, k_min: int = 2, k_max: int = 8, caminho=None) -> tuple[int, dict]:
-    """
-    Testa valores de k entre k_min e k_max, calculando inércia (cotovelo) e
-    coeficiente de silhueta para cada um. Retorna o k com maior silhueta e
-    um dicionário com o detalhamento de cada métrica testada.
-
-    Nota metodológica: o k de maior silhueta é o mais bem separado
-    estatisticamente, mas nem sempre é o mais rico narrativamente — vale
-    comparar visualmente o gráfico gerado antes de decidir.
+   
+    r visualmente o gráfico gerado antes de decidir.
     """
     k_range = range(k_min, k_max + 1)
     inercias, silhuetas = [], []
@@ -138,17 +105,7 @@ def escolher_k(X: np.ndarray, k_min: int = 2, k_max: int = 8, caminho=None) -> t
 
 
 def clusterizar_bairros(perfil: pd.DataFrame, k: int | None = None, caminho_elbow=None, caminho_pca=None):
-    """
-    Executa a clusterização completa: padronização (StandardScaler), escolha
-    de k (se não informado) e ajuste final do KMeans, com visualização PCA.
-
-    Returns
-    -------
-    perfil : pd.DataFrame
-        Mesmo DataFrame de entrada, com a coluna `cluster` adicionada.
-    detalhes_k : dict
-        Métricas usadas na escolha de k (ver escolher_k).
-    """
+    
     scaler = StandardScaler()
     X = scaler.fit_transform(perfil)
 
@@ -185,7 +142,7 @@ def clusterizar_bairros(perfil: pd.DataFrame, k: int | None = None, caminho_elbo
 
 
 def resumo_por_cluster(perfil_com_cluster: pd.DataFrame) -> pd.DataFrame:
-    """Perfil médio (ocorrências, idade, ação policial, fim de semana) de cada cluster."""
+    
     return perfil_com_cluster.groupby("cluster")[
         ["ocorrencias", "idade_media", "acao_policial", "pct_fim_semana"]
     ].mean().round(2)
